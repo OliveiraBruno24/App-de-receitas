@@ -6,6 +6,11 @@ export function Login() {
   const [isValidEmailValue, setIsValidEmailValue] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
 
+  const handleSubmit = () => {
+    const userData = { email };
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
   const isValidEmail = (user:string): boolean => {
     const emailRegex = /\S+@\S+\.\S+/;
     return emailRegex.test(user);
@@ -42,6 +47,7 @@ export function Login() {
       <button
         data-testid="login-submit-btn"
         disabled={ !isValidEmailValue || !isValidPassword }
+        onClick={ handleSubmit }
       >
         Login
 
