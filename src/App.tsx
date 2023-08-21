@@ -8,7 +8,7 @@ function App() {
   return (
 
     <div className="meals">
-      <span className="logo">TRYBee</span>
+      <span className="logo">TRYBE</span>
       <Login />
       <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
         Glass
