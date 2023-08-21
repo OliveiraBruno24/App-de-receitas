@@ -7,8 +7,7 @@ export function Login() {
   const [isValidPassword, setIsValidPassword] = useState(false);
 
   const handleSubmit = () => {
-    const userData = { email };
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify({ email }));
   };
 
   const isValidEmail = (user:string): boolean => {
