@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidEmailValue, setIsValidEmailValue] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     localStorage.setItem('user', JSON.stringify({ email }));
+    navigate('/meals');
   };
 
   const isValidEmail = (user:string): boolean => {

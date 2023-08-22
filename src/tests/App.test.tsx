@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Login } from '../pages/Login';
+import { MemoryRouter } from 'react-router-dom';
+import { Login } from '../components/Login';
 
 describe('Componente de Login', () => {
   const email = 'email-input';
@@ -8,7 +9,11 @@ describe('Componente de Login', () => {
   const testeEmail = 'teste@teste.com';
 
   it('exibe os campos de email, senha e botão de login', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByTestId(email)).toBeInTheDocument();
     expect(screen.getByTestId(password)).toBeInTheDocument();
@@ -16,11 +21,15 @@ describe('Componente de Login', () => {
   });
 
   it('habilita o botão de login quando email e senha são válidos', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>,
+    );
 
-    const emailInput = screen.getByTestId('email-input');
-    const passwordInput = screen.getByTestId('password-input');
-    const loginButton = screen.getByTestId('login-submit-btn');
+    const emailInput = screen.getByTestId(email);
+    const passwordInput = screen.getByTestId(password);
+    const loginButton = screen.getByTestId(loginSubmitButton);
 
     fireEvent.change(emailInput, { target: { value: testeEmail } });
     fireEvent.change(passwordInput, { target: { value: 'senhavalida' } });
@@ -29,7 +38,11 @@ describe('Componente de Login', () => {
   });
 
   it('desabilita o botão de login quando o email é inválido', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>,
+    );
 
     const emailInput = screen.getByTestId(email);
     const passwordInput = screen.getByTestId(password);
@@ -42,7 +55,11 @@ describe('Componente de Login', () => {
   });
 
   it('desabilita o botão de login quando a senha é inválida', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>,
+    );
 
     const emailInput = screen.getByTestId(email);
     const passwordInput = screen.getByTestId(password);
@@ -55,7 +72,11 @@ describe('Componente de Login', () => {
   });
 
   it('armazena os dados do usuário no localStorage após o login bem-sucedido', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>,
+    );
 
     const emailInput = screen.getByTestId(email);
     const passwordInput = screen.getByTestId(password);
@@ -65,7 +86,6 @@ describe('Componente de Login', () => {
     fireEvent.change(passwordInput, { target: { value: 'senhavalida' } });
     fireEvent.click(loginButton);
 
-    // const storedUser = JSON.parse(localStorage.getItem('user'));
-    // expect(storedUser).toEqual({ email: 'valido@example.com' });
+    // Coloque o código de expectativa aqui
   });
 });

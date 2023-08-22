@@ -3,3 +3,8 @@ export interface SearchBarProps {
   // searchType é o tipo baseado em radio
   onSearch: (query: string, searchType: string) => void;
 }
+
+export interface Meal {
+  idMeal: string;
+  strMeal: string;
+}
