@@ -4,10 +4,15 @@ import {
   searchRecipesByIngredient,
   searchRecipesByName,
   searchRecipesByFirstLetter,
+  searchDrinksByName,
+  searchDrinksByFirstLetter,
+  searchDrinksByIngredient,
 } from '../utils/Api';
-import { Recipe } from '../utils/types';
+import { RecipeItem, SearchBarProps } from '../utils/types';
 
-function SearchBar() {
+/* onSearch é o callback q manda as informações p
+componente pai (App), p saber oq foi pesquisado */
+function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('');
   const [searchType, setSearchType] = useState('ingredient');
   const FIRST_LETTER = 'first-letter';
@@ -17,39 +22,52 @@ function SearchBar() {
   const handleSearch = async () => {
     // caso a pesquisa tenha mais de um caractere
     if (searchType === FIRST_LETTER && query.length !== 1) {
-      alert('Your search must have only 1 (one) character');
-      return; // retorn p não continuar a busca
+      window.alert('Your search must have only 1 (one) character');
+      return; // return p não continuar a busca
     }
 
     // Chamar a função de busca aqui
-    let recipes: Recipe = [];
+    let recipes: RecipeItem[] = [];
+
+    const isDrinksPage = location.pathname === '/bebidas';
 
     if (searchType === 'ingredient') {
-      recipes = await searchRecipesByIngredient(query);
+      if (isDrinksPage) {
+        recipes = await searchDrinksByIngredient(query); // Função para buscar drinks por ingrediente
+      } else {
+        recipes = await searchRecipesByIngredient(query); // Função para buscar comidas por ingrediente
+      }
     } else if (searchType === 'name') {
-      recipes = await searchRecipesByName(query);
+      if (isDrinksPage) {
+        recipes = await searchDrinksByName(query); // Função para buscar drinks por nome
+      } else {
+        recipes = await searchRecipesByName(query); // Função para buscar comidas por nome
+      }
     } else if (searchType === FIRST_LETTER) {
-      recipes = await searchRecipesByFirstLetter(query);
+      if (isDrinksPage) {
+        recipes = await searchDrinksByFirstLetter(query); // Função para buscar drinks por primeira letra
+      } else {
+        recipes = await searchRecipesByFirstLetter(query); // Função para buscar comidas por primeira letra
+      }
     }
 
     console.log('Resultados obtidos:', recipes);
+
+    // Chamar a função onSearch com os resultados da busca
+    onSearch(query, searchType, recipes);
   };
 
   // tipo o usenavigate, mas obtem o local atual
   const location = useLocation();
 
-  /* useEffect para verificar o local atual e
-    definir o estado renderSearchBar
-    p true or false se tiver em search */
+  // Verificar o local atual e definir o estado renderSearchBar
   useEffect(() => {
     if (location.pathname === '/search') {
-      console.log('deu boa');
       setRenderSearchBar(true);
     } else {
-      console.log('deu ruim');
       setRenderSearchBar(false);
     }
-  }, [location.pathname]);
+  }, [location]);
   // dependencia ou seja, sempre q o url mudar, manda o useEffect
 
   return (
@@ -101,10 +119,7 @@ function SearchBar() {
             </label>
           </div>
 
-          <button
-            data-testid="exec-search-btn"
-            onClick={ handleSearch }
-          >
+          <button data-testid="exec-search-btn" onClick={ handleSearch }>
             Search
           </button>
         </>
