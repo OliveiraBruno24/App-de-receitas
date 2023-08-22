@@ -4,6 +4,8 @@ export interface SearchBarProps {
   onSearch: (query: string, searchType: string) => void;
 }
 
+export type Recipe = Meal[];
+
 export interface Meal {
   idMeal: string;
   strMeal: string;

@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import {
+  searchRecipesByIngredient,
+  searchRecipesByName,
+  searchRecipesByFirstLetter,
+} from '../utils/Api';
+import { Recipe } from '../utils/types';
 
 function SearchBar() {
   const [query, setQuery] = useState('');
@@ -9,17 +15,32 @@ function SearchBar() {
   const [renderSearchBar, setRenderSearchBar] = useState(false);
 
   const handleSearch = async () => {
+    // caso a pesquisa tenha mais de um caractere
     if (searchType === FIRST_LETTER && query.length !== 1) {
-      alert('Sua pesquisa deve conter apenas 1 caractere');
+      alert('Your search must have only 1 (one) character');
+      return; // retorn p não continuar a busca
     }
+
+    // Chamar a função de busca aqui
+    let recipes: Recipe = [];
+
+    if (searchType === 'ingredient') {
+      recipes = await searchRecipesByIngredient(query);
+    } else if (searchType === 'name') {
+      recipes = await searchRecipesByName(query);
+    } else if (searchType === FIRST_LETTER) {
+      recipes = await searchRecipesByFirstLetter(query);
+    }
+
+    console.log('Resultados obtidos:', recipes);
   };
 
   // tipo o usenavigate, mas obtem o local atual
   const location = useLocation();
 
   /* useEffect para verificar o local atual e
-  definir o estado renderSearchBar
-  p true or false se tiver em search */
+    definir o estado renderSearchBar
+    p true or false se tiver em search */
   useEffect(() => {
     if (location.pathname === '/search') {
       console.log('deu boa');
@@ -35,7 +56,7 @@ function SearchBar() {
     <div>
 
       {renderSearchBar && (
-        // renderiza o componente apenas quando 'renderSearchBar' for true
+      // renderiza o componente apenas quando 'renderSearchBar' for true
         <>
           <input
             data-testid="search-input"
@@ -74,7 +95,7 @@ function SearchBar() {
                 type="radio"
                 value={ FIRST_LETTER }
                 checked={ searchType === FIRST_LETTER }
-                onChange={ () => setSearchType('firstLetter') }
+                onChange={ () => setSearchType(FIRST_LETTER) }
               />
               First Letter
             </label>
