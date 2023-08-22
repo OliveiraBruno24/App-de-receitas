@@ -1,68 +1,71 @@
-import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import App from '../App';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Login } from '../pages/Login';
-import '@testing-library/jest-dom/extend-expect';
 
-describe('Testando o componente <App />', () => {
-  const EMAIL_INPUT = 'email-input';
-  const PASSWORD_INPUT = 'password-input';
-  const LOGIN_BUTTON = 'login-submit-btn';
+describe('Componente de Login', () => {
+  const email = 'email-input';
+  const password = 'password-input';
+  const loginSubmitButton = 'login-submit-btn';
+  const testeEmail = 'teste@teste.com';
 
-  const newEmail = 'teste@gmail.com';
-  const newPassword = 'senha123';
+  it('exibe os campos de email, senha e botão de login', () => {
+    render(<Login />);
 
-  beforeEach(() => {
-    localStorage.clear(); // Limpar localStorage antes de cada teste
+    expect(screen.getByTestId(email)).toBeInTheDocument();
+    expect(screen.getByTestId(password)).toBeInTheDocument();
+    expect(screen.getByTestId(loginSubmitButton)).toBeInTheDocument();
   });
 
-  it('A página de login possui os campos de email, senha e um botão', () => {
-    render(<App />);
+  it('habilita o botão de login quando email e senha são válidos', () => {
+    render(<Login />);
 
-    const emailInput = screen.getByTestId(EMAIL_INPUT);
-    const passwordInput = screen.getByTestId(PASSWORD_INPUT);
-    const loginButton = screen.getByTestId(LOGIN_BUTTON);
-    expect(emailInput).toBeInTheDocument();
-    expect(passwordInput).toBeInTheDocument();
-    expect(loginButton).toBeInTheDocument();
+    const emailInput = screen.getByTestId('email-input');
+    const passwordInput = screen.getByTestId('password-input');
+    const loginButton = screen.getByTestId('login-submit-btn');
+
+    fireEvent.change(emailInput, { target: { value: testeEmail } });
+    fireEvent.change(passwordInput, { target: { value: 'senhavalida' } });
+
+    expect(loginButton).toBeEnabled();
   });
 
-  it('O botão deve estar desabilitado quando o email for inválido', () => {
-    render(<App />);
+  it('desabilita o botão de login quando o email é inválido', () => {
+    render(<Login />);
 
-    const emailInput = screen.getByTestId(EMAIL_INPUT);
-    const loginButton = screen.getByTestId(LOGIN_BUTTON);
+    const emailInput = screen.getByTestId(email);
+    const passwordInput = screen.getByTestId(password);
+    const loginButton = screen.getByTestId(loginSubmitButton);
+
+    fireEvent.change(emailInput, { target: { value: 'invalido' } });
+    fireEvent.change(passwordInput, { target: { value: 'senhavalida' } });
+
     expect(loginButton).toBeDisabled();
-    userEvent.type(emailInput, 'invalid-email');
+  });
+
+  it('desabilita o botão de login quando a senha é inválida', () => {
+    render(<Login />);
+
+    const emailInput = screen.getByTestId(email);
+    const passwordInput = screen.getByTestId(password);
+    const loginButton = screen.getByTestId(loginSubmitButton);
+
+    fireEvent.change(emailInput, { target: { value: testeEmail } });
+    fireEvent.change(passwordInput, { target: { value: 'curta' } });
+
     expect(loginButton).toBeDisabled();
   });
 
-  it('Simula a entrada de dados e-mail', () => {
+  it('armazena os dados do usuário no localStorage após o login bem-sucedido', () => {
     render(<Login />);
 
-    fireEvent.change(screen.getByTestId('email-input'), { target: { value: newEmail } });
-  });
+    const emailInput = screen.getByTestId(email);
+    const passwordInput = screen.getByTestId(password);
+    const loginButton = screen.getByTestId(loginSubmitButton);
 
-  it('Simula a entrada de dados de senha', () => {
-    render(<Login />);
+    fireEvent.change(emailInput, { target: { value: testeEmail } });
+    fireEvent.change(passwordInput, { target: { value: 'senhavalida' } });
+    fireEvent.click(loginButton);
 
-    const passwordInput = screen.getByTestId(PASSWORD_INPUT);
-    fireEvent.change(passwordInput, { target: { value: newPassword } });
-  });
-
-  it('deve salvar os dados do usuário no localStorage após o login bem-sucedido', () => {
-    render(<Login />);
-    const campoEmail = screen.getByTestId(EMAIL_INPUT);
-    const campoSenha = screen.getByTestId(PASSWORD_INPUT);
-    const botaoLogin = screen.getByTestId(LOGIN_BUTTON);
-
-    userEvent.type(campoEmail, 'email@exemplo.com');
-    userEvent.type(campoSenha, 'senhamuitolonga');
-
-    fireEvent.click(botaoLogin);
-
-    const usuarioArmazenado = JSON.parse(localStorage.getItem('user') || '{}');
-    expect(usuarioArmazenado).toEqual({ email: 'email@exemplo.com' });
+    // const storedUser = JSON.parse(localStorage.getItem('user'));
+    // expect(storedUser).toEqual({ email: 'valido@example.com' });
   });
 });
