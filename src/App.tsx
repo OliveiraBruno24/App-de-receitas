@@ -4,17 +4,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './components/Login';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
-import { RecipeItem } from './utils/types';
+import { Drink, Meal } from './utils/types';
 
 function App() {
   const handleSearch = async (
     query: string,
     searchType: string,
-    recipes: RecipeItem[],
+    // recipes: RecipeItem[],
+    meals: Meal[],
+    drinks: Drink[],
   ) => {
-    console.log('Busca do individuo:', query);
-    console.log('tipo de radio:', searchType);
-    console.log('receita querida:', recipes);
+
   };
 
   return (
