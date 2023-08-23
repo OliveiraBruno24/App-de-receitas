@@ -33,6 +33,18 @@ describe('testando Footer', () => {
     const drinkIcon = screen.getByTestId('drinks-bottom-btn');
     expect(drinkIcon).toBeInTheDocument();
     fireEvent.click(drinkIcon);
-    expect(window.location.pathname).toBe('/drinks');
+    expect(window.location.pathname === '/drinks').toBeTruthy;
+  });
+  it('verifica se ao clicar no icone de comida, é redirecionado pa a página /meals', () => {
+    render(
+      <MemoryRouter>
+        <Footer />
+      </MemoryRouter>,
+    );
+
+    const foodIcon = screen.getByTestId('meals-bottom-btn');
+    expect(foodIcon).toBeInTheDocument();
+    fireEvent.click(foodIcon);
+    expect(window.location.pathname === '/meals').toBeTruthy;
   });
 });

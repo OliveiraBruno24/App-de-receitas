@@ -14,6 +14,12 @@ export interface Meal {
   idMeal: string;
   strMeal: string;
   isfood: string;
+  strCategory: string;
+  strArea:string;
+  strInstructions:string;
+  strMealThumb: string;
+  strTags: string;
+  strYoutube: string;
 }
 
 export interface Drink {
@@ -23,3 +29,7 @@ export interface Drink {
   strInstructions: string;
   strDrinkThumb: string;
 }
+
+export type MealsContextTypes = {
+  meals: Meal[];
+};
