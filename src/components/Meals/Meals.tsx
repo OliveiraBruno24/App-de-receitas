@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
 // Api
 import {
   searchRecipesByIngredient,
@@ -8,13 +9,15 @@ import {
   searchDrinksByName,
   searchDrinksByFirstLetter,
   searchDrinksByIngredient,
-} from '../utils/Api';
+} from '../../utils/Api';
+
 // tipagem
-import { Drink, Meal, SearchBarProps } from '../utils/types';
-import Footer from './Footer';
+import { Drink, Meal, SearchBarProps } from '../../utils/types';
+import Footer from '../Footer/Footer';
 
 /* onSearch é o callback q manda as informações p
 componente pai (App), p saber oq foi pesquisado */
+
 function SearchBar({ onSearch }: SearchBarProps) {
   const [myQuery, setMyQuery] = useState('');
   // console.log('query', myQuery);
@@ -126,5 +129,3 @@ function SearchBar({ onSearch }: SearchBarProps) {
 }
 
 export default SearchBar;
-
-// por que está retornando um array vazio na primieira busca?
