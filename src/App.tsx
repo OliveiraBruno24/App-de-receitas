@@ -5,6 +5,7 @@ import { Login } from './components/Login';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import { Drink, Meal } from './utils/types';
+import Footer from './components/Footer';
 
 function App() {
   const handleSearch = async (
@@ -22,8 +23,12 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={ <Login /> } />
-        <Route path="/search" element={ <SearchBar onSearch={ handleSearch } /> } />
+        <Route
+          path="/search"
+          element={ <SearchBar onSearch={ handleSearch } /> }
+        />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
