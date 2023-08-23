@@ -11,6 +11,7 @@ import {
 } from '../utils/Api';
 // tipagem
 import { Drink, Meal, SearchBarProps } from '../utils/types';
+import Footer from './Footer';
 
 /* onSearch é o callback q manda as informações p
 componente pai (App), p saber oq foi pesquisado */
@@ -119,7 +120,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
       <button data-testid="exec-search-btn" onClick={ HandleSearch }>
         Search
       </button>
-
+      <Footer />
     </div>
   );
 }
