@@ -6,7 +6,6 @@ function Meals() {
 
   return (
     <div>
-      <h1>Meals</h1>
       {meals.slice(0, 12).map((meal, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
           <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>

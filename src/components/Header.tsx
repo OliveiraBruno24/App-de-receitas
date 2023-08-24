@@ -7,6 +7,7 @@ function Header() {
   const location = useLocation();
   const showSearchIcon = ['/meals', '/drinks'].includes(location.pathname);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+
   const handleClick = () => {
     setIsSearchVisible(!isSearchVisible);
   };
@@ -14,22 +15,22 @@ function Header() {
   // tirei pq a gente sempre deve entrar primeiro em /meals e depois trocamos de página pelo footer.
   // fica até mais simples.
 
-  // const getTitle = () => {
-  //   switch (location.pathname) {
-  //     case '/meals':
-  //       return 'Meals';
-  //     case '/drinks':
-  //       return 'Drinks';
-  //     case '/profile':
-  //       return 'Profile';
-  //     case '/done-recipes':
-  //       return 'Done Recipes';
-  //     case '/favorite-recipes':
-  //       return 'Favorite Recipes';
-  //     default:
-  //       return '';
-  //   }
-  // };
+  const getTitle = () => {
+    switch (location.pathname) {
+      case '/meals':
+        return 'Meals';
+      case '/drinks':
+        return 'Drinks';
+      case '/profile':
+        return 'Profile';
+      case '/done-recipes':
+        return 'Done Recipes';
+      case '/favorite-recipes':
+        return 'Favorite Recipes';
+      default:
+        return '';
+    }
+  };
   return (
     <header>
       <div>
@@ -49,7 +50,7 @@ function Header() {
           <input data-testid="search-input" type="text" name="" id="" />
         )}
       </div>
-      {/* <h1 data-testid="page-title">{getTitle()}</h1> */}
+      <h1 data-testid="page-title">{getTitle()}</h1>
     </header>
   );
 }
