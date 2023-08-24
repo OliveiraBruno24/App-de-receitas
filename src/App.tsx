@@ -1,3 +1,5 @@
+import './App.css';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login/Login';
 import Header from './components/Header/Header';
@@ -12,6 +14,7 @@ import MealsRecipes from './components/Meals/MealsRecipes';
 import Footer from './components/Footer/Footer';
 import Meals from './components/Meals/Meals';
 import MealsProvider from './context/MealsProvider';
+
 
 function App() {
   return (
@@ -41,6 +44,7 @@ function App() {
 
         </Routes>
       </MealsProvider>
+
       <Footer />
     </BrowserRouter>
   );

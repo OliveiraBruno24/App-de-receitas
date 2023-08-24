@@ -14,8 +14,6 @@ function Header() {
     setIsSearchVisible(!isSearchVisible);
   };
 
-  // tirei pq a gente sempre deve entrar primeiro em /meals e depois trocamos de página pelo footer.
-  // fica até mais simples.
 
   const getTitle = () => {
     switch (location.pathname) {
@@ -40,6 +38,7 @@ function Header() {
         <Link to="/profile">
           <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
         </Link>
+
         {showSearchIcon && (
           <button onClick={ toggleSearch }>
             <img
@@ -59,3 +58,4 @@ function Header() {
   );
 }
 export default Header;
+
