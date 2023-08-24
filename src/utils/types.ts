@@ -1,8 +1,13 @@
 export interface SearchBarProps {
-  // query é o conteudo da busca do user
-  // searchType é o tipo baseado em radio
-  onSearch: (query: string,
-    searchType: string, meals: Meal[], drinks: Drink[]) => void;
+  // query é o conteúdo da busca do usuário
+  // searchType é o tipo baseado em rádio
+  onSearch: (
+    query: string,
+    searchType: string,
+    setIsMeal: (meals: Meal[]) => void,
+    setIsDrink: (drinks: Drink[]) => void,
+    isID: number,
+  ) => void;
 }
 
 // export type RecipeMeal = Meal[]; // apenas receitas
@@ -11,7 +16,8 @@ export interface SearchBarProps {
 export type RecipeItem = Meal | Drink; // receitas ou drinks
 
 export interface Meal {
-  idMeal: string;
+  meals: any;
+  idMeal: number;
   strMeal: string;
   isfood: string;
   strCategory: string;
@@ -20,14 +26,11 @@ export interface Meal {
   strMealThumb: string;
   strTags: string;
   strYoutube: string;
-}
-
-export interface AAAAAAAAA {
-  drinks: Drink
+  isId: number;
 }
 
 export interface Drink {
-  idDrink: string;
+  idDrink: number;
   strDrink: string;
   strCategory: string;
   strInstructions: string;

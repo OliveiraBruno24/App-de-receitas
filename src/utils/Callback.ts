@@ -4,11 +4,11 @@ export const Callback = async (
   query: string,
   searchType: string,
   // recipes: RecipeItem[],
-  meals: Meal[],
-  drinks: Drink[],
+  setIsMeal: (meals: Meal[]) => void,
+  setIsDrink: (drinks: Drink[]) => void,
 ) => {
   console.log(query);
   console.log(searchType);
-  console.log(meals);
-  console.log(drinks);
+  console.log(setIsMeal);
+  console.log(setIsDrink);
 };

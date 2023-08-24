@@ -14,90 +14,109 @@ import {
 } from '../../utils/Api';
 
 // tipagem
-import { AAAAAAAAA, Drink, Meal, SearchBarProps } from '../../utils/types';
+import { Drink, Meal, SearchBarProps } from '../../utils/types';
 import Footer from '../Footer/Footer';
 
 /* onSearch é o callback q manda as informações p
 componente pai (App), p saber oq foi pesquisado */
 function SearchBar({ onSearch }: SearchBarProps) {
+  const FIRST_LETTER = 'first-letter';
+  const navigate = useNavigate();
+
   const [myQuery, setMyQuery] = useState('');
   // console.log('query', myQuery);
-
   const [searchType, setSearchType] = useState('ingredient');
   // console.log('type', searchType);
 
-  const FIRST_LETTER = 'first-letter';
+  const [isDrink, setIsDrink] = useState<Drink[]>([]);
+  const [isMeal, setIsMeal] = useState<Meal[]>([]);
+  const [isID, setIsID] = useState(0);
+  console.log('oi', isID);
 
-  const [isFood, setIsfood] = useState<Meal[]>([]);
-  const [isDrink, setIsDrink] = useState<AAAAAAAAA[]>([]);
-  const navigate = useNavigate();
+  // PRECISO QUE MEU ISID 
 
   const HandleSearch = async () => {
+    const isDrinksPage = location.pathname === '/drinks';
+    const isMealsPage = location.pathname === '/meals';
+
     // caso a pesquisa tenha mais de um caractere
     if (searchType === FIRST_LETTER && myQuery.length !== 1) {
       window.alert('Your search must have only 1 (one) character');
-      return; // return p não continuar a busca
     }
-
-    const isDrinksPage = location.pathname === '/drinks';
 
     if (searchType === 'ingredient') {
       if (isDrinksPage) {
-        const recipes = await searchDrinksByIngredient(myQuery); // Função para buscar drinks por ingrediente
+        const recipes = await searchDrinksByIngredient(myQuery);
+        console.log('recipes ingredient drink: ', recipes);
 
-        const recipeId = recipes[0].drinks.idDrink;
+        const recipeId = recipes[0].idDrink;
+        console.log(recipeId);
+        setIsID(recipes[0].idDrink);
 
-        if (isDrink.length === 1) {
+        if (isDrink.length !== 1) {
           navigate(`/${isDrinksPage ? 'drinks' : 'meals'}/${recipeId}`);
+          console.log('Redirecionamento DRINK = 1 concluído');
           return; // Redirecionado, não precisa continuar a busca
         }
 
         setIsDrink(recipes);
-      } else {
-        const recipes = await searchRecipesByIngredient(myQuery); // Função para buscar comidas por ingrediente
+      } else if (isMealsPage) {
+        const recipesFood = await searchRecipesByIngredient(myQuery);
+        console.log('recipes ingredient FOOD: ', recipesFood);
 
-        setIsfood(recipes);
+        const recipeId = recipesFood[0].idMeal;
+        console.log('recipes ID ingredient FOOD: ', recipeId);
+
+        if (isMeal.length === 1) {
+          navigate(`/${isDrinksPage ? 'drinks' : 'meals'}/${recipeId}`);
+          console.log('Redirecionamento FOOD = 1 concluído');
+          return; // Redirecionado, não precisa continuar a busca
+        }
+        setIsMeal(recipesFood.map((item) => item.meals));
       }
     } else if (searchType === 'name') {
       if (isDrinksPage) {
-        const recipes = await searchDrinksByName(myQuery); // Função para buscar drinks por nome
-
-        const recipeId = recipes[0].drinks.idDrink;
+        const recipes = await searchDrinksByName(myQuery);
+        const recipeId = recipes[0].idDrink;
 
         if (isDrink.length === 1) {
           navigate(`/${isDrinksPage ? 'drinks' : 'meals'}/${recipeId}`);
           return; // Redirecionado, não precisa continuar a busca
         }
         setIsDrink(recipes);
-      } else {
-        const recipes = await searchRecipesByName(myQuery); // Função para buscar comidas por nome
+      } else if (isMealsPage) {
+        const recipesFood = await searchRecipesByName(myQuery);
+        const recipeId = recipesFood[0].idMeal;
 
-        console.log('recipes', recipes);
-        setIsfood(recipes);
+        if (isMeal.length === 1) {
+          navigate(`/${isDrinksPage ? 'drinks' : 'meals'}/${recipeId}`);
+          return; // Redirecionado, não precisa continuar a busca
+        }
+        setIsMeal(recipesFood.map((item) => item.meals));
       }
     } if (searchType === FIRST_LETTER) {
       if (isDrinksPage) {
         const recipes = await searchDrinksByFirstLetter(myQuery);
-
-        const recipeId = recipes[0].drinks.idDrink;
+        const recipeId = recipes[0].idDrink;
 
         if (isDrink.length === 1) {
           navigate(`/${isDrinksPage ? 'drinks' : 'meals'}/${recipeId}`);
           return; // Redirecionado, não precisa continuar a busca
         }
-
         setIsDrink(recipes);
-      } else {
-        const recipes = await searchRecipesByFirstLetter(myQuery);
-        if (isDrink.length === 1) {
-          const recipeId = recipes[0].idMeal;
-          navigate(`/meals/${recipeId}`);
+      } else if (isMealsPage) {
+        const recipesFood = await searchRecipesByFirstLetter(myQuery);
+        const recipeId = recipesFood[0].idMeal;
+
+        if (isMeal.length === 1) {
+          navigate(`/${isDrinksPage ? 'drinks' : 'meals'}/${recipeId}`);
           return; // Redirecionado, não precisa continuar a busca
         }
-        setIsfood(recipes);
+        setIsMeal(recipesFood.map((item) => item.meals));
       }
     }
-    onSearch(myQuery, searchType, isFood, isDrink);
+
+    onSearch(myQuery, searchType, setIsMeal, setIsDrink, isID);
   };
 
   const location = useLocation();

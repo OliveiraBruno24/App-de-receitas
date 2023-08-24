@@ -14,17 +14,30 @@ import MealsRecipes from './components/Meals/MealsRecipes';
 import Footer from './components/Footer/Footer';
 import Meals from './components/Meals/Meals';
 import MealsProvider from './context/MealsProvider';
+import { SearchBarProps } from './utils/types';
+import { useContext, useState } from 'react';
 
 function App() {
+  const [isArmazenaId, setIsArmazenaId] = useState<SearchBarProps>(0);
+  const { isID } = useContext(MealsContext);
+  const 
+  const teeeeste = async (
+    isID: SearchBarProps,
+  ) => {
+    setIsArmazenaId();
+  };
+
   return (
+
     <BrowserRouter>
+
       <Header />
       <MealsProvider>
         <Routes>
           <Route path="/" element={ <Login /> } />
 
-          <Route path="/meals/:id-da-receita" element={ <MealsRecipes /> } />
-          <Route path="/drinks/:id-da-receita" element={ <DrinksRecipes /> } />
+          <Route path={ `/meals/${teeeeste}` } element={ <MealsRecipes /> } />
+          <Route path={ `/drinks/${teeeeste}` } element={ <DrinksRecipes /> } />
 
           <Route
             path="/meals/:id-da-receita/in-progress"

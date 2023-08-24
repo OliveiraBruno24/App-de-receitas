@@ -1,3 +1,3 @@
-const DrinksRecipes = () => 'teste';
+const DrinksRecipes = () => 'teeeeeeeste';
 
 export default DrinksRecipes;
