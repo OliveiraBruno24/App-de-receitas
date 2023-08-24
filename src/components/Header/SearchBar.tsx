@@ -8,17 +8,20 @@ import {
   searchDrinksByName,
   searchDrinksByFirstLetter,
   searchDrinksByIngredient,
-} from '../utils/Api';
+} from '../../utils/Api';
 // tipagem
-import { Drink, Meal, SearchBarProps } from '../utils/types';
-import Footer from './Footer';
+import { Drink, Meal, SearchBarProps } from '../../utils/types';
+import Footer from '../Footer/Footer';
 
 /* onSearch é o callback q manda as informações p
 componente pai (App), p saber oq foi pesquisado */
 function SearchBar({ onSearch }: SearchBarProps) {
   const [myQuery, setMyQuery] = useState('');
-  // console.log('query', myQuery);
+  console.log('query', myQuery);
+
   const [searchType, setSearchType] = useState('ingredient');
+  console.log('type', searchType);
+
   const FIRST_LETTER = 'first-letter';
 
   const [isFood, setIsfood] = useState<Meal[]>([]);
@@ -126,5 +129,3 @@ function SearchBar({ onSearch }: SearchBarProps) {
 }
 
 export default SearchBar;
-
-// por que está retornando um array vazio na primieira busca?
