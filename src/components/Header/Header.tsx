@@ -14,7 +14,6 @@ function Header() {
     setIsSearchVisible(!isSearchVisible);
   };
 
-
   const getTitle = () => {
     switch (location.pathname) {
       case '/meals':
@@ -58,4 +57,3 @@ function Header() {
   );
 }
 export default Header;
-
