@@ -15,7 +15,6 @@ import Footer from './components/Footer/Footer';
 import Meals from './components/Meals/Meals';
 import MealsProvider from './context/MealsProvider';
 
-
 function App() {
   return (
     <BrowserRouter>

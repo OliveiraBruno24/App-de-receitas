@@ -22,6 +22,10 @@ export interface Meal {
   strYoutube: string;
 }
 
+export interface AAAAAAAAA {
+  drinks: Drink
+}
+
 export interface Drink {
   idDrink: string;
   strDrink: string;

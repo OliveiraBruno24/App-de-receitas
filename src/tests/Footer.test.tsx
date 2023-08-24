@@ -46,6 +46,5 @@ describe('testando Footer', () => {
     expect(foodIcon).toBeInTheDocument();
     fireEvent.click(foodIcon);
     expect('window.location.pathname === /meals').toBe(true);
-
   });
 });
