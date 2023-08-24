@@ -33,7 +33,19 @@ describe('testando Footer', () => {
     const drinkIcon = screen.getByTestId('drinks-bottom-btn');
     expect(drinkIcon).toBeInTheDocument();
     fireEvent.click(drinkIcon);
-    // expect(window.location.pathname).toBe('/drinks');
-    // tirar comentários somente quando rota de drinks estiver de buenas
+    expect(window.location.pathname === '/drinks').toBe(true);
+  });
+  it('verifica se ao clicar no icone de comida, é redirecionado pa a página /meals', () => {
+    render(
+      <MemoryRouter>
+        <Footer />
+      </MemoryRouter>,
+    );
+
+    const foodIcon = screen.getByTestId('meals-bottom-btn');
+    expect(foodIcon).toBeInTheDocument();
+    fireEvent.click(foodIcon);
+    expect('window.location.pathname === /meals').toBe(true);
+
   });
 });

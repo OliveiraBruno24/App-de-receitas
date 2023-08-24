@@ -14,6 +14,7 @@ function Header() {
     setIsSearchVisible(!isSearchVisible);
   };
 
+
   const getTitle = () => {
     switch (location.pathname) {
       case '/meals':
@@ -52,10 +53,9 @@ function Header() {
           <SearchBar onSearch={ Callback } />
         )}
       </div>
-      <h1 data-testid="page-title">{getTitle()}</h1>
+      <h1 data-testid="page-title">{ getTitle() }</h1>
     </header>
   );
 }
-
 export default Header;
-// data-testid="search-input"
+

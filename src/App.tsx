@@ -1,4 +1,5 @@
 import './App.css';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login/Login';
 import Header from './components/Header/Header';
@@ -12,30 +13,38 @@ import MealsInProgress from './components/Meals/MealsInProgress';
 import MealsRecipes from './components/Meals/MealsRecipes';
 import Footer from './components/Footer/Footer';
 import Meals from './components/Meals/Meals';
+import MealsProvider from './context/MealsProvider';
+
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={ <Login /> } />
+      <MealsProvider>
+        <Routes>
+          <Route path="/" element={ <Login /> } />
 
-        <Route path="/meals/:id-da-receita" element={ <MealsRecipes /> } />
-        <Route path="/drinks/:id-da-receita" element={ <DrinksRecipes /> } />
+          <Route path="/meals/:id-da-receita" element={ <MealsRecipes /> } />
+          <Route path="/drinks/:id-da-receita" element={ <DrinksRecipes /> } />
 
-        <Route path="/meals/:id-da-receita/in-progress" element={ <MealsInProgress /> } />
-        <Route
-          path="/drinks/:id-da-receita/in-progress"
-          element={ <DrinksInProgress /> }
-        />
+          <Route
+            path="/meals/:id-da-receita/in-progress"
+            element={ <MealsInProgress /> }
+          />
+          <Route
+            path="/drinks/:id-da-receita/in-progress"
+            element={ <DrinksInProgress /> }
+          />
 
-        <Route path="/meals" element={ <Meals /> } />
-        <Route path="/drinks" element={ <Drinks /> } />
-        <Route path="/profile" element={ <Profile /> } />
-        <Route path="/done-recipes" element={ <DoneRecipes /> } />
-        <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
+          <Route path="/meals" element={ <Meals /> } />
+          <Route path="/drinks" element={ <Drinks /> } />
+          <Route path="/profile" element={ <Profile /> } />
+          <Route path="/done-recipes" element={ <DoneRecipes /> } />
+          <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
 
-      </Routes>
+        </Routes>
+      </MealsProvider>
+
       <Footer />
     </BrowserRouter>
   );
