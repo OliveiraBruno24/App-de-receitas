@@ -97,6 +97,3 @@ describe('Componente Header', () => {
     expect(pageTitle).toHaveTextContent('Favorite Recipes');
   });
 });
-function debug() {
-  throw new Error('Function not implemented.');
-}

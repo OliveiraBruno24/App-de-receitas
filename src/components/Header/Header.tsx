@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import SearchBar from './SearchBar';
+import { Callback } from '../../utils/Callback';
 
 function Header() {
   const location = useLocation();
   const showSearchIcon = ['/meals', '/drinks'].includes(location.pathname);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const handleClick = () => {
+
+  const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
   };
 
@@ -31,13 +34,12 @@ function Header() {
   return (
     <header>
       <div>
-
         <Link to="/profile">
           <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
         </Link>
 
         {showSearchIcon && (
-          <button onClick={ handleClick }>
+          <button onClick={ toggleSearch }>
             <img
               data-testid="search-top-btn"
               src={ searchIcon }
@@ -47,7 +49,7 @@ function Header() {
         )}
 
         {isSearchVisible && (
-          <input data-testid="search-input" type="text" name="" id="" />
+          <SearchBar onSearch={ Callback } />
         )}
       </div>
       <h1 data-testid="page-title">{getTitle()}</h1>
@@ -56,3 +58,4 @@ function Header() {
 }
 
 export default Header;
+// data-testid="search-input"

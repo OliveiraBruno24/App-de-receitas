@@ -17,8 +17,11 @@ import Footer from '../Footer/Footer';
 componente pai (App), p saber oq foi pesquisado */
 function SearchBar({ onSearch }: SearchBarProps) {
   const [myQuery, setMyQuery] = useState('');
-  // console.log('query', myQuery);
+  console.log('query', myQuery);
+
   const [searchType, setSearchType] = useState('ingredient');
+  console.log('type', searchType);
+
   const FIRST_LETTER = 'first-letter';
 
   const [isFood, setIsfood] = useState<Meal[]>([]);
