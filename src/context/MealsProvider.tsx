@@ -4,7 +4,7 @@ import { Meal } from '../utils/types';
 
 type MealsProviderType = {
   children:React.ReactNode
-  togglePage: () => void
+  // togglePage: () => void
 };
 
 function MealsProvider({ children }: MealsProviderType) {

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 
 describe('testando Footer', () => {
   it('testa se existe o icone de bebidas na tela', () => {
@@ -33,7 +33,7 @@ describe('testando Footer', () => {
     const drinkIcon = screen.getByTestId('drinks-bottom-btn');
     expect(drinkIcon).toBeInTheDocument();
     fireEvent.click(drinkIcon);
-    expect(window.location.pathname === '/drinks').toBeTruthy;
+    expect(window.location.pathname === '/drinks').toBe(true);
   });
   it('verifica se ao clicar no icone de comida, é redirecionado pa a página /meals', () => {
     render(
@@ -45,6 +45,6 @@ describe('testando Footer', () => {
     const foodIcon = screen.getByTestId('meals-bottom-btn');
     expect(foodIcon).toBeInTheDocument();
     fireEvent.click(foodIcon);
-    expect(window.location.pathname === '/meals').toBeTruthy;
+    expect('window.location.pathname === /meals').toBe(true);
   });
 });

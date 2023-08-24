@@ -1,34 +1,44 @@
-import React from 'react';
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from './components/Login';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Meals from './pages/Meals';
+import { Login } from './pages/Login/Login';
+import Header from './components/Header/Header';
+import FavoriteRecipes from './components/FavoriteRecipes';
+import DoneRecipes from './components/DoneRecipes';
+import Profile from './components/Profile';
+import Drinks from './components/Drinks/Drinks';
+import DrinksInProgress from './components/Drinks/DrinksInProgress';
+import DrinksRecipes from './components/Drinks/DrinksRecipes';
+import MealsInProgress from './components/Meals/MealsInProgress';
+import MealsRecipes from './components/Meals/MealsRecipes';
+import Footer from './components/Footer/Footer';
+import Meals from './components/Meals/Meals';
 import MealsProvider from './context/MealsProvider';
 
 function App() {
-  // const handleSearch = async (
-  //   query: string,
-  //   searchType: string,
-  //   // recipes: RecipeItem[],
-  //   meals: Meal[],
-  //   drinks: Drink[],
-  // ) => {
-
-  // };
-
   return (
     <BrowserRouter>
       <Header />
       <MealsProvider>
         <Routes>
           <Route path="/" element={ <Login /> } />
-          {/* <Route
-          path="/search"
-          element={ <SearchBar onSearch={ handleSearch } /> }
-        /> */}
+
+          <Route path="/meals/:id-da-receita" element={ <MealsRecipes /> } />
+          <Route path="/drinks/:id-da-receita" element={ <DrinksRecipes /> } />
+
+          <Route
+            path="/meals/:id-da-receita/in-progress"
+            element={ <MealsInProgress /> }
+          />
+          <Route
+            path="/drinks/:id-da-receita/in-progress"
+            element={ <DrinksInProgress /> }
+          />
+
           <Route path="/meals" element={ <Meals /> } />
+          <Route path="/drinks" element={ <Drinks /> } />
+          <Route path="/profile" element={ <Profile /> } />
+          <Route path="/done-recipes" element={ <DoneRecipes /> } />
+          <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
+
         </Routes>
       </MealsProvider>
       <Footer />

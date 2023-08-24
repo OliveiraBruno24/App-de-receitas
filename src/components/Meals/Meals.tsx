@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import MealsContext from '../context/MealsContext';
+import MealsContext from '../../context/MealsContext';
 
 function Meals() {
   const { meals } = useContext(MealsContext);
