@@ -6,7 +6,6 @@ export interface SearchBarProps {
     searchType: string,
     setIsMeal: (meals: Meal[]) => void,
     setIsDrink: (drinks: Drink[]) => void,
-    isID: number,
   ) => void;
 }
 
