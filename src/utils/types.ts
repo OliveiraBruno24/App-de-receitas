@@ -9,6 +9,12 @@ export interface SearchBarProps {
   ) => void;
 }
 
+export const Callback = async (
+  onSearch: SearchBarProps,
+) => {
+  console.log(onSearch);
+};
+
 // export type RecipeMeal = Meal[]; // apenas receitas
 // export type RecipeDrink = Drink[]; // apenas drinks
 

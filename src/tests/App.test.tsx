@@ -85,7 +85,5 @@ describe('Componente de Login', () => {
     fireEvent.change(emailInput, { target: { value: testeEmail } });
     fireEvent.change(passwordInput, { target: { value: 'senhavalida' } });
     fireEvent.click(loginButton);
-
-    // Coloque o código de expectativa aqui
   });
 });
