@@ -24,10 +24,6 @@ function RecipeDetail({ type }: any) {
     fetchRecipeDetails();
   }, [recipeId, type]);
 
-  if (!recipe) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <h2>{type === 'meal' ? recipe.strMeal : recipe.strDrink}</h2>

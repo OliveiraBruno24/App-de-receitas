@@ -14,7 +14,8 @@ describe('Componente Profile', () => {
     expect(elementoEmail).toHaveTextContent(emailArmazenado);
   });
 
-  it('redireciona para a página de Receitas Feitas ao clicar no botão de Receitas Feitas', () => {
+  it(`redireciona para a página de Receitas 
+  Feitas ao clicar no botão de Receitas Feitas`, () => {
     render(<Profile />, {
       wrapper: ({ children }) => (
         <MemoryRouter initialEntries={ ['/'] }>{children}</MemoryRouter>
@@ -28,7 +29,8 @@ describe('Componente Profile', () => {
     expect(window.location.pathname).toBe('/done-recipes');
   });
 
-  it('redireciona para a página de Receitas Favoritas ao clicar no botão de Receitas Favoritas', () => {
+  it(`redireciona para a página de Receitas 
+  Favoritas ao clicar no botão de Receitas Favoritas`, () => {
     render(<Profile />, {
       wrapper: ({ children }) => (
         <MemoryRouter initialEntries={ ['/'] }>{children}</MemoryRouter>
@@ -42,7 +44,8 @@ describe('Componente Profile', () => {
     expect(window.location.pathname).toBe('/favorite-recipes');
   });
 
-  it('limpa o localStorage e redireciona para a página de login ao clicar no botão de Logout', () => {
+  it(`limpa o localStorage e redireciona 
+  para a página de login ao clicar no botão de Logout`, () => {
     const emailArmazenado = 'exemplo@exemplo.com';
     localStorage.setItem('user', JSON.stringify({ email: emailArmazenado }));
 

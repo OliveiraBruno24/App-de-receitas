@@ -15,7 +15,6 @@ import Meals from './components/Recipes/Meals/Meals';
 import DrinksInProgress from './components/Recipes/Drinks/DrinksInProgress';
 import Drinks from './components/Recipes/Drinks/Drinks';
 import DrinksRecipes from './components/Recipes/Drinks/DrinksRecipes';
-
 import MealsProvider from './context/MealsProvider';
 import DrinksProvider from './context/DrinksProvider';
 

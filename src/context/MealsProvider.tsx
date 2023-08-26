@@ -13,7 +13,6 @@ function MealsProvider({ children }: MealsProviderType) {
     const getMealsInfo = async () => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
-      // console.log('data', data);
 
       setMeals(data.meals);
     };
