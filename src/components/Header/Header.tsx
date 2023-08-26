@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import { Callback } from '../../utils/Callback';
+import { Callback } from '../../utils/types';
 
 function Header() {
   const location = useLocation();

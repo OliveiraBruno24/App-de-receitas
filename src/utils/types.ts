@@ -1,6 +1,4 @@
 export interface SearchBarProps {
-  // query é o conteúdo da busca do usuário
-  // searchType é o tipo baseado em rádio
   onSearch: (
     query: string,
     searchType: string,
@@ -10,13 +8,11 @@ export interface SearchBarProps {
 }
 
 export const Callback = async (
+  // onSearch: SearchBarProps['onSearch'],
   onSearch: SearchBarProps,
 ) => {
   console.log(onSearch);
 };
-
-// export type RecipeMeal = Meal[]; // apenas receitas
-// export type RecipeDrink = Drink[]; // apenas drinks
 
 export type RecipeItem = Meal | Drink; // receitas ou drinks
 
@@ -44,4 +40,8 @@ export interface Drink {
 
 export type MealsContextTypes = {
   meals: Meal[];
+};
+
+export type DrinksContextTypes = {
+  drinks: Drink[];
 };

@@ -4,12 +4,10 @@ import { Meal } from '../utils/types';
 
 type MealsProviderType = {
   children:React.ReactNode
-  // togglePage: () => void
 };
 
 function MealsProvider({ children }: MealsProviderType) {
   const [meals, setMeals] = useState<Meal[]>([]);
-  // const [page, setPage] = useState<'meals' | 'drinks'>('meals');
 
   useEffect(() => {
     const getMealsInfo = async () => {
@@ -23,12 +21,7 @@ function MealsProvider({ children }: MealsProviderType) {
     getMealsInfo();
   }, []);
 
-  // const togglePage = () => {
-  //   setPage(page === 'meals' ? 'drinks' : 'meals');
-  // };
-
   const contextValue = { meals };
-  // const contextPage = page;
   return (
     <MealsContext.Provider value={ contextValue }>
       {children}

@@ -2,19 +2,24 @@ import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const navigate = useNavigate();
-  const storedEmail = localStorage.getItem('user'); // Se o e-mail armazenado em localStorage está visível.
+  // Se o e-mail armazenado em localStorage está visível.
+  const storedEmail = localStorage.getItem('user');
 
   const handleDoneRecipesClick = () => {
-    navigate('/done-recipes'); // Ao clicar no botão de `Done Recipes, a rota mude para a tela de receitas feitas.
+    navigate('/done-recipes');
+    // Ao clicar no botão de `Done Recipes, a rota mude para a tela de receitas feitas.
   };
 
   const handleFavoriteRecipesClick = () => {
-    navigate('/favorite-recipes'); // Ao clicar no botão de Favorite Recipes, a rota mude para a tela de receitas favoritas.
+    navigate('/favorite-recipes');
+    // Ao clicar no botão de Favorite Recipes, a rota mude para a tela de receitas favoritas.
   };
 
   const handleLogoutClick = () => {
-    localStorage.clear(); // Limpa todas as chaves do localStorage.
-    navigate('/'); // Redireciona para a tela de login.
+    // Limpa todas as chaves do localStorage.
+    localStorage.clear();
+    // Redireciona para a tela de login.
+    navigate('/');
   };
 
   return (

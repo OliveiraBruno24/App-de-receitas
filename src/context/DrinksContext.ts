@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { MealsContextTypes } from '../utils/types';
+import { DrinksContextTypes } from '../utils/types';
 
-const MealsContext = createContext({} as MealsContextTypes);
+const DrinksContext = createContext({} as DrinksContextTypes);
 
-export default MealsContext;
+export default DrinksContext;

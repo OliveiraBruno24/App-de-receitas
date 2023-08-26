@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export const mockDataMeals = {
   meals: [
     {
@@ -8,7 +6,20 @@ export const mockDataMeals = {
       strDrinkAlternate: null,
       strCategory: 'Dessert',
       strArea: 'American',
-      strInstructions: 'Heat oven to 180C/160C fan/gas 4. Line a 20 x 30cm baking tray tin with baking parchment. Put the chocolate, butter and sugar in a pan and gently melt, stirring occasionally with a wooden spoon. Remove from the heat.\r\nStir the eggs, one by one, into the melted chocolate mixture. Sieve over the flour and cocoa, and stir in. Stir in half the raspberries, scrape into the tray, then scatter over the remaining raspberries. Bake on the middle shelf for 30 mins or, if you prefer a firmer texture, for 5 mins more. Cool before slicing into squares. Store in an airtight container for up to 3 days.',
+      strInstructions:
+      `Heat oven to 180C/160C fan/gas 4. Line a 20 x 30cm 
+      baking tray tin with baking parchment.
+      Put the chocolate, butter and sugar in a pan and gently melt, 
+      stirring occasionally with a wooden spoon. 
+      Remove from the heat.\r\nStir the eggs, one by one, 
+      into the melted chocolate mixture. Sieve over the 
+      flour and cocoa, and stir in. Stir in half the 
+      raspberries, scrape into the tray, then scatter 
+      over the remaining raspberries. Bake on 
+      the middle shelf for 30 mins or, if you 
+      prefer a firmer texture, for 5 mins more. 
+      Cool before slicing into squares. 
+      Store in an airtight container for up to 3 days.`,
       strMealThumb: 'https://www.themealdb.com/images/media/meals/yypvst1511386427.jpg',
       strTags: 'Chocolate,Desert,Snack',
       strYoutube: 'https://www.youtube.com/watch?v=Pi89PqsAaAg',
@@ -73,10 +84,12 @@ export const mockDataDrinks = {
       strAlcoholic: 'Alcoholic',
       strGlass: 'Martini Glass',
       strInstructions: 'Shake well in a shaker with ice.\r\nStrain in a martini glass.',
-      strInstructionsES: 'Agite bien en una coctelera con hielo. Cuela en una copa de Martini.',
+      strInstructionsES:
+      'Agite bien en una coctelera con hielo. Cuela en una copa de Martini.',
       strInstructionsDE: null,
       strInstructionsFR: null,
-      strInstructionsIT: 'Shakerare bene in uno shaker con ghiaccio.\r\nFiltrare in una coppetta Martini.',
+      strInstructionsIT:
+      'Shakerare bene in uno shaker con ghiaccio.\r\nFiltrare in una coppetta Martini.',
       'strInstructionsZH-HANS': null,
       'strInstructionsZH-HANT': null,
       strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
