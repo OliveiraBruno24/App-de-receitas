@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import DrinksContext from '../../../context/DrinksContext';
 import { Drink } from '../../../utils/types';
+import DrinksContext from '../../../context/DrinksContext';
 
 function Drinks() {
   const { drinks } = useContext(DrinksContext);
@@ -9,6 +9,7 @@ function Drinks() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredDrinks, setFilteredDrinks] = useState<Drink[]>([]);
 
+  // Carrega as categorias iniciais
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -21,10 +22,10 @@ function Drinks() {
         console.error('Erro de fetching: ', error);
       }
     };
-
     fetchCategories();
   }, []);
 
+  // Filtra as receitas com base na categoria selecionada ou exibe todas as receitas
   useEffect(() => {
     const fetchFilteredDrinks = async () => {
       if (selectedCategory) {
@@ -47,17 +48,21 @@ function Drinks() {
 
   const handleCategoryClick = (category: string) => {
     if (selectedCategory === category) {
-      setSelectedCategory(null); // Toggle
+      setSelectedCategory(null); // Limpa o filtro
     } else {
-      setSelectedCategory(category);
+      setSelectedCategory(category); // Aplica o filtro
     }
+  };
+
+  const handleClearFilters = () => {
+    setSelectedCategory(null);
   };
 
   return (
     <div>
       <div>
         <button
-          onClick={ () => handleCategoryClick('All') }
+          onClick={ handleClearFilters }
           data-testid="All-category-filter"
         >
           All

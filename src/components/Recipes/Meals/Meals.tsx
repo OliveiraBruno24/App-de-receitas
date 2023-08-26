@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MealsContext from '../../../context/MealsContext';
 import { Meal } from '../../../utils/types';
 
@@ -9,6 +9,7 @@ function Meals() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
 
+  // Carrega as categorias no carregamento inicial
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -25,6 +26,7 @@ function Meals() {
     fetchCategories();
   }, []);
 
+  // Filtra as receitas com base na categoria selecionada ou exibe todas as receitas
   useEffect(() => {
     const fetchFilteredMeals = async () => {
       if (selectedCategory) {
@@ -43,25 +45,31 @@ function Meals() {
     };
 
     fetchFilteredMeals();
-  }, [selectedCategory, meals]);
+  }, [meals, selectedCategory]);
 
   const handleCategoryClick = (category: string) => {
     if (selectedCategory === category) {
-      setSelectedCategory(null);
+      setSelectedCategory(null); // Limpa o filtro
     } else {
-      setSelectedCategory(category);
+      setSelectedCategory(category); // Aplica o filtro
     }
+  };
+
+  const handleClearFilters = () => {
+    setSelectedCategory(null);
   };
 
   return (
     <div>
       <div>
+        {/* Botão para exibir todas as receitas */}
         <button
-          onClick={ () => handleCategoryClick('All') }
+          onClick={ handleClearFilters }
           data-testid="All-category-filter"
         >
           All
         </button>
+        {/* Lista de botões de categorias */}
         {categories.map((categoryName) => (
           <button
             key={ categoryName.strCategory }
@@ -73,13 +81,14 @@ function Meals() {
         ))}
       </div>
       <div>
+        {/* Lista de receitas filtradas */}
         {filteredMeals.map((meal, index) => (
           <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
             <div data-testid={ `${index}-recipe-card` }>
               <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>
               <img
                 data-testid={ `${index}-card-img` }
-                src={ meal.strMealThumb }
+                src={ meal.strMealThumb } // Certifique-se de que essa propriedade está correta
                 alt={ meal.strMeal }
               />
             </div>

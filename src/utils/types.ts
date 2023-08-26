@@ -18,7 +18,7 @@ export type RecipeItem = Meal | Drink; // receitas ou drinks
 
 export interface Meal {
   meals: any;
-  idMeal: any;
+  idMeal: number;
   strMeal: string;
   isfood: string;
   strCategory: string;
