@@ -25,7 +25,7 @@ export interface Meal {
   strMealThumb: string;
   strTags: string;
   strYoutube: string;
-  isId: number;
+  // isId: number;
 }
 
 export interface Drink {
@@ -38,4 +38,9 @@ export interface Drink {
 
 export type MealsContextTypes = {
   meals: Meal[];
+};
+
+export type DrinksContextTypes = {
+  drinks: Drink[];
+  // isId: Drink,
 };
