@@ -1,18 +1,21 @@
 import './App.css';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { Login } from './pages/Login/Login';
+
 import Header from './components/Header/Header';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import DoneRecipes from './components/DoneRecipes';
 import Profile from './components/Profile';
-import Drinks from './components/Drinks/Drinks';
-import DrinksInProgress from './components/Drinks/DrinksInProgress';
-import DrinksRecipes from './components/Drinks/DrinksRecipes';
-import MealsInProgress from './components/Meals/MealsInProgress';
-import MealsRecipes from './components/Meals/MealsRecipes';
+import MealsInProgress from './components/Recipes/Meals/MealsInProgress';
+import MealsRecipes from './components/Recipes/Meals/MealsRecipes';
 import Footer from './components/Footer/Footer';
-import Meals from './components/Meals/Meals';
+import Meals from './components/Recipes/Meals/Meals';
+import DrinksInProgress from './components/Recipes/Drinks/DrinksInProgress';
+import Drinks from './components/Recipes/Drinks/Drinks';
+import DrinksRecipes from './components/Recipes/Drinks/DrinksRecipes';
+
 import MealsProvider from './context/MealsProvider';
 import DrinksProvider from './context/DrinksProvider';
 
