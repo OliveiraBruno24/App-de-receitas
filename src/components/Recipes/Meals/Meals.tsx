@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import MealsContext from '../../../context/MealsContext';
 import { Meal } from '../../../utils/types';
 
@@ -45,18 +46,18 @@ function Meals() {
   }, [selectedCategory, meals]);
 
   const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const handleClearFilters = () => {
-    setSelectedCategory(null);
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+    } else {
+      setSelectedCategory(category);
+    }
   };
 
   return (
     <div>
       <div>
         <button
-          onClick={ handleClearFilters }
+          onClick={ () => handleCategoryClick('All') }
           data-testid="All-category-filter"
         >
           All
@@ -73,14 +74,16 @@ function Meals() {
       </div>
       <div>
         {filteredMeals.map((meal, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
-            <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-            />
-          </div>
+          <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
+            <div data-testid={ `${index}-recipe-card` }>
+              <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+              />
+            </div>
+          </Link>
         ))}
       </div>
     </div>

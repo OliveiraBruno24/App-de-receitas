@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Drink } from '../../../utils/types';
+import { Link } from 'react-router-dom';
 import DrinksContext from '../../../context/DrinksContext';
+import { Drink } from '../../../utils/types';
 
 function Drinks() {
   const { drinks } = useContext(DrinksContext);
@@ -45,18 +46,18 @@ function Drinks() {
   }, [selectedCategory, drinks]);
 
   const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const handleClearFilters = () => {
-    setSelectedCategory(null);
+    if (selectedCategory === category) {
+      setSelectedCategory(null); // Toggle
+    } else {
+      setSelectedCategory(category);
+    }
   };
 
   return (
     <div>
       <div>
         <button
-          onClick={ handleClearFilters }
+          onClick={ () => handleCategoryClick('All') }
           data-testid="All-category-filter"
         >
           All
@@ -73,14 +74,16 @@ function Drinks() {
       </div>
       <div>
         {filteredDrinks.map((drink, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
-            <h2 data-testid={ `${index}-card-name` }>{drink.strDrink}</h2>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrink }
-            />
-          </div>
+          <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
+            <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
+              <h2 data-testid={ `${index}-card-name` }>{drink.strDrink}</h2>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+              />
+            </div>
+          </Link>
         ))}
       </div>
     </div>
