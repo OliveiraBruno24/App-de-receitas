@@ -16,6 +16,8 @@ import Meals from './components/Meals/Meals';
 import MealsProvider from './context/MealsProvider';
 // import { SearchBarProps } from './utils/types';
 // import { useContext, useState } from 'react';
+import DrinksContext from './context/DrinksContext';
+import DrinksProvider from './context/DrinksProvider';
 
 function App() {
   // const [isArmazenaId, setIsArmazenaId] = useState<SearchBarProps>(0);
@@ -33,6 +35,7 @@ function App() {
 
       <Header />
       <MealsProvider>
+        <DrinksProvider>
         <Routes>
           <Route path="/" element={ <Login /> } />
 
@@ -55,6 +58,7 @@ function App() {
           <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
 
         </Routes>
+        </DrinksProvider>
       </MealsProvider>
 
       <Footer />
