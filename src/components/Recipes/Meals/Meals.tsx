@@ -88,7 +88,7 @@ function Meals() {
               <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>
               <img
                 data-testid={ `${index}-card-img` }
-                src={ meal.strMealThumb } // Certifique-se de que essa propriedade está correta
+                src={ meal.strMealThumb }
                 alt={ meal.strMeal }
               />
             </div>

@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import { Callback } from '../../utils/types';
 
 function Header() {
   const location = useLocation();
@@ -43,17 +42,18 @@ function Header() {
             <img
               data-testid="search-top-btn"
               src={ searchIcon }
-              alt="Icone de Pesquisa"
+              alt="Search Icon"
             />
           </button>
         )}
 
         {isSearchVisible && (
-          <SearchBar onSearch={ Callback } />
+          <SearchBar onSearch={ () => { } } />
         )}
       </div>
-      <h1 data-testid="page-title">{ getTitle() }</h1>
+      <h1 data-testid="page-title">{getTitle()}</h1>
     </header>
   );
 }
+
 export default Header;
