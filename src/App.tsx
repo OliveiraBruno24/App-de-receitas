@@ -5,18 +5,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './pages/Login/Login';
 
 import Header from './components/Header/Header';
-import FavoriteRecipes from './components/FavoriteRecipes';
-import DoneRecipes from './components/DoneRecipes';
+import FavoriteRecipes from './components/Recipes/FavoriteRecipes';
+import DoneRecipes from './components/Recipes/DoneRecipes';
 import Profile from './components/Profile';
-import MealsInProgress from './components/Recipes/Meals/MealsInProgress';
-import MealsRecipes from './components/Recipes/Meals/MealsRecipes';
 import Footer from './components/Footer/Footer';
 import Meals from './components/Recipes/Meals/Meals';
-import DrinksInProgress from './components/Recipes/Drinks/DrinksInProgress';
 import Drinks from './components/Recipes/Drinks/Drinks';
-import DrinksRecipes from './components/Recipes/Drinks/DrinksRecipes';
 import MealsProvider from './context/MealsProvider';
 import DrinksProvider from './context/DrinksProvider';
+import RecipeDetail from './components/Recipes/RecipeDetails';
 
 function App() {
   return (
@@ -29,17 +26,17 @@ function App() {
           <Routes>
             <Route path="/" element={ <Login /> } />
 
-            <Route path="/meals/:id-da-receita" element={ <MealsRecipes /> } />
-            <Route path="/drinks/:id-da-receita" element={ <DrinksRecipes /> } />
+            <Route path="/meals/:recipeId" element={ <RecipeDetail /> } />
+            <Route path="/drinks/:recipeId" element={ <RecipeDetail /> } />
 
-            <Route
+            {/* <Route
               path="/meals/:id-da-receita/in-progress"
               element={ <MealsInProgress /> }
             />
             <Route
               path="/drinks/:id-da-receita/in-progress"
               element={ <DrinksInProgress /> }
-            />
+            /> */}
 
             <Route path="/meals" element={ <Meals /> } />
             <Route path="/drinks" element={ <Drinks /> } />
