@@ -7,12 +7,12 @@ export interface SearchBarProps {
   ) => void;
 }
 
-export const Callback = async (
-  // onSearch: SearchBarProps['onSearch'],
-  onSearch: SearchBarProps,
-) => {
-  console.log(onSearch);
-};
+// export const Callback = async (
+//   // onSearch: SearchBarProps['onSearch'],
+//   onSearch: SearchBarProps,
+// ) => {
+//   console.log(onSearch);
+// };
 
 export type RecipeItem = Meal | Drink; // receitas ou drinks
 
