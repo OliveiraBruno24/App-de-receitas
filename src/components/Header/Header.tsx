@@ -48,7 +48,7 @@ function Header() {
         )}
 
         {isSearchVisible && (
-          <SearchBar onSearch={ () => { } } />
+          <SearchBar onSearch={ () => {} } setSearchBarInput={ () => {} } />
         )}
       </div>
       <h1 data-testid="page-title">{getTitle()}</h1>

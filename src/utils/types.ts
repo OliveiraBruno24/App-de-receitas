@@ -1,5 +1,5 @@
 export interface SearchBarProps {
-  setSearchBarInput(arg0: string): unknown;
+  setSearchBarInput: (input: string) => void;
   onSearch: (
     query: string,
     searchType: string,
