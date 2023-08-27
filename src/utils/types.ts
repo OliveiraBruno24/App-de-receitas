@@ -20,7 +20,7 @@ export interface Meal {
   strMealThumb: string;
   strTags: string;
   strYoutube: string;
-  isId: number;
+  // isId: number;
 }
 
 export interface Drink {

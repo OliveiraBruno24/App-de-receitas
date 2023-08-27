@@ -8,13 +8,12 @@ type DrinksProviderType = {
 
 function DrinksProvider({ children }: DrinksProviderType) {
   const [drinks, setDrinks] = useState<Drink[]>([]);
-  console.log('drinks', drinks);
+  // console.log('drinks', drinks);
 
   useEffect(() => {
     const getDrinksInfo = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const data = await response.json();
-
       setDrinks(data.drinks);
     };
 
