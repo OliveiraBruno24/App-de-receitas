@@ -2,26 +2,26 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../Header/Header';
-import { FavoriteRecipesTypes } from '../../utils/types';
+import { FavoriteAndDoneRecipes } from '../../utils/types';
 
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
-  const [favorites, setFavorites] = useState<FavoriteRecipesTypes[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteAndDoneRecipes[]>([]);
   const [filter, setFilter] = useState<string>('');
   const [copy, setCopy] = useState('');
 
-  const handleFavorite = (recipe: FavoriteRecipesTypes) => {
+  const handleFavorite = (recipe: FavoriteAndDoneRecipes) => {
     if (localStorage.getItem('favoriteRecipes')) {
       const newFavorites = favorites
-        .filter((e) => e.id !== recipe.id) as FavoriteRecipesTypes[];
+        .filter((e) => e.id !== recipe.id) as FavoriteAndDoneRecipes[];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
       setFavorites(newFavorites);
     }
   };
 
-  const handleLinkCopy = (recipe: FavoriteRecipesTypes) => {
+  const handleLinkCopy = (recipe: FavoriteAndDoneRecipes) => {
     const newLink = `${window.location.origin}/${recipe.type}s/${recipe.id}`;
     navigator.clipboard.writeText(newLink).then(() => {
       setCopy(recipe.id);
@@ -31,7 +31,7 @@ function FavoriteRecipes() {
   useEffect(() => {
     const getFavorite = () => {
       const favorited = JSON.parse(localStorage
-        .getItem('favoriteRecipes') || '[]') as FavoriteRecipesTypes[];
+        .getItem('favoriteRecipes') || '[]') as FavoriteAndDoneRecipes[];
       setFavorites(favorited);
     };
     getFavorite();

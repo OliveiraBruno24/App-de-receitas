@@ -1,5 +1,5 @@
 export interface SearchBarProps {
-  setSearchBarInput: (input: string) => void;
+  setSearchBarInput(arg0: string): unknown;
   onSearch: (
     query: string,
     searchType: string,
@@ -38,12 +38,14 @@ export type DrinksContextTypes = {
   drinks: Drink[];
 };
 
-export type FavoriteRecipesTypes = {
-  image: string;
-  name: string;
-  alcoholicOrNot: string;
-  nationality: string;
-  category: string;
-  id: string;
-  type: string;
+export type FavoriteAndDoneRecipes = {
+  id: string,
+  type: string,
+  nationality: string,
+  category:string,
+  alcoholicOrNot: string,
+  name: string,
+  image:string,
+  doneDate: string,
+  tags: string,
 };
