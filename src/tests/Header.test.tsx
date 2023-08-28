@@ -1,9 +1,20 @@
 import { screen, fireEvent, render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { vi } from 'vitest';
 import Header from '../components/Header/Header';
+
+import SearchBar from '../components/Header/SearchBar';
+import { Meal, Drink } from '../utils/types';
+
+afterEach(() => {
+  vi.clearAllMocks();
+});
 
 describe('Componente Header', () => {
   const PAGE_TITLE = 'page-title';
+  const PROFILE_TOP_BTN = 'profile-top-btn';
+  const SEARCH_TOP_BTN = 'search-top-btn';
+  const SEARCH_INPUT = 'search-input';
 
   test('Testa título da página', () => {
     render(
@@ -12,8 +23,7 @@ describe('Componente Header', () => {
       </MemoryRouter>,
     );
 
-    const pageTitle = screen.getByTestId(PAGE_TITLE);
-    expect(pageTitle).toHaveTextContent('Meals');
+    expect(screen.getByTestId(PAGE_TITLE)).toHaveTextContent('Meals');
   });
 
   test('Testa redirecionamento para a tela de perfil', () => {
@@ -23,27 +33,9 @@ describe('Componente Header', () => {
       </MemoryRouter>,
     );
 
-    const profileButton = screen.getByTestId('profile-top-btn');
-    fireEvent.click(profileButton);
-    const pageTitle = screen.getByTestId(PAGE_TITLE);
-    expect(pageTitle).toHaveTextContent('Profile');
+    fireEvent.click(screen.getByTestId(PROFILE_TOP_BTN));
+    expect(screen.getByTestId(PAGE_TITLE)).toHaveTextContent('Profile');
   });
-
-  // test('Testa redirecionamento para a tela de busca', async () => {
-  //   render(
-  //     <MemoryRouter>
-  //       <Header />
-  //     </MemoryRouter>,
-  //   );
-
-  //   const searchButton = screen.getByTestId('search-top-btn');
-  //   fireEvent.click(searchButton);
-
-  //   await waitFor(() => {
-  //     const pageTitle = screen.getByTestId(PAGE_TITLE);
-  //     expect(pageTitle).toHaveTextContent('Search');
-  //   });
-  // });
 
   test('Testa título da página para "Drinks"', () => {
     render(
@@ -52,8 +44,7 @@ describe('Componente Header', () => {
       </MemoryRouter>,
     );
 
-    const pageTitle = screen.getByTestId('page-title');
-    expect(pageTitle).toHaveTextContent('Drinks');
+    expect(screen.getByTestId(PAGE_TITLE)).toHaveTextContent('Drinks');
   });
 
   test('Testa se o botão de Search está funcionando corretamente', async () => {
@@ -63,14 +54,13 @@ describe('Componente Header', () => {
       </MemoryRouter>,
     );
 
-    const searchButton = screen.getByTestId('search-top-btn');
-    fireEvent.click(searchButton);
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BTN));
 
     await waitFor(() => {
-      const searchBar = screen.getByTestId('search-input');
+      const searchBar = screen.getByTestId(SEARCH_INPUT);
       expect(searchBar).toBeInTheDocument();
 
-      fireEvent.click(searchButton);
+      fireEvent.click(screen.getByTestId(SEARCH_TOP_BTN));
       expect(searchBar).not.toBeInTheDocument();
     });
   });
@@ -82,8 +72,7 @@ describe('Componente Header', () => {
       </MemoryRouter>,
     );
 
-    const pageTitle = screen.getByTestId(PAGE_TITLE);
-    expect(pageTitle).toHaveTextContent('Done Recipes');
+    expect(screen.getByTestId(PAGE_TITLE)).toHaveTextContent('Done Recipes');
   });
 
   test('Testa título da página para "Favorite Recipes"', () => {
@@ -93,7 +82,71 @@ describe('Componente Header', () => {
       </MemoryRouter>,
     );
 
+    expect(screen.getByTestId(PAGE_TITLE)).toHaveTextContent('Favorite Recipes');
+  });
+
+  test('Testa exibição correta do ícone de busca', () => {
+    render(
+      <MemoryRouter initialEntries={ ['/meals'] } initialIndex={ 0 }>
+        <Header />
+      </MemoryRouter>,
+    );
+
+    const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
+    expect(searchButton).toBeInTheDocument();
+  });
+
+  test('Testa redirecionamento para a tela de busca', async () => {
+    render(
+      <MemoryRouter initialEntries={ ['/meals'] } initialIndex={ 0 }>
+        <Header />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BTN));
+
+    // Aguarda até que o elemento da barra de pesquisa seja renderizado
+    await waitFor(() => {
+      const searchBar = screen.getByTestId(SEARCH_INPUT);
+      expect(searchBar).toBeInTheDocument();
+
+      // Simula a ação de fechar a barra de pesquisa
+      fireEvent.click(screen.getByTestId(SEARCH_TOP_BTN));
+      expect(searchBar).not.toBeInTheDocument();
+    });
+  });
+
+  // Dentro do bloco 'describe' para 'Componente Header'
+  test('Testa a função toggleSearch', () => {
+    render(
+      <MemoryRouter initialEntries={ ['/meals'] } initialIndex={ 0 }>
+        <Header />
+      </MemoryRouter>,
+    );
+
+    // Verifica que a barra de pesquisa não está visível inicialmente
+    expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
+
+    // Clica no botão de pesquisa para abrir a barra
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BTN));
+
+    // Verifica que a barra de pesquisa está visível após o clique
+    expect(screen.getByTestId(SEARCH_INPUT)).toBeInTheDocument();
+
+    // Clica novamente no botão de pesquisa para fechar a barra
+    fireEvent.click(screen.getByTestId(SEARCH_TOP_BTN));
+
+    // Verifica que a barra de pesquisa não está mais visível
+    expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
+  });
+  test('Testa função getTitle()', () => {
+    render(
+      <MemoryRouter initialEntries={ ['/meals'] }>
+        <Header />
+      </MemoryRouter>,
+    );
+
     const pageTitle = screen.getByTestId(PAGE_TITLE);
-    expect(pageTitle).toHaveTextContent('Favorite Recipes');
+    expect(pageTitle).toHaveTextContent('Meals');
   });
 });

@@ -1,6 +1,5 @@
 export interface SearchBarProps {
-  // query é o conteúdo da busca do usuário
-  // searchType é o tipo baseado em rádio
+  setSearchBarInput(arg0: string): unknown;
   onSearch: (
     query: string,
     searchType: string,
@@ -9,20 +8,9 @@ export interface SearchBarProps {
   ) => void;
 }
 
-export const Callback = async (
-  onSearch: SearchBarProps,
-) => {
-  console.log(onSearch);
-};
-
-// export type RecipeMeal = Meal[]; // apenas receitas
-// export type RecipeDrink = Drink[]; // apenas drinks
-
-export type RecipeItem = Meal | Drink; // receitas ou drinks
-
 export interface Meal {
   meals: any;
-  idMeal: number;
+  idMeal: string;
   strMeal: string;
   isfood: string;
   strCategory: string;
@@ -35,7 +23,7 @@ export interface Meal {
 }
 
 export interface Drink {
-  idDrink: number;
+  idDrink: string;
   strDrink: string;
   strCategory: string;
   strInstructions: string;
@@ -48,5 +36,16 @@ export type MealsContextTypes = {
 
 export type DrinksContextTypes = {
   drinks: Drink[];
-  // isId: Drink,
+};
+
+export type FavoriteAndDoneRecipes = {
+  id: string,
+  type: string,
+  nationality: string,
+  category:string,
+  alcoholicOrNot: string,
+  name: string,
+  image:string,
+  doneDate: string,
+  tags: string,
 };

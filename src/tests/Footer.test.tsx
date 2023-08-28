@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 
 describe('testando Footer', () => {
@@ -23,23 +23,26 @@ describe('testando Footer', () => {
     const foodIcon = screen.getByTestId('meals-bottom-btn');
     expect(foodIcon).toBeInTheDocument();
   });
-  it('verifica se ao clicar no icone de bebida, é redirecionado para a página /drinks', () => {
+  it(`verifica se ao clicar no icone de bebida, 
+  é redirecionado para a página /drinks`, () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Footer />
-      </MemoryRouter>,
+      </BrowserRouter>,
     );
 
     const drinkIcon = screen.getByTestId('drinks-bottom-btn');
     expect(drinkIcon).toBeInTheDocument();
+
     fireEvent.click(drinkIcon);
     expect(window.location.pathname).toBe('/drinks');
   });
-  it('verifica se ao clicar no icone de comida, é redirecionado pa a página /meals', () => {
+  it(`verifica se ao clicar no icone de comida,
+   é redirecionado pa a página /meals`, () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Footer />
-      </MemoryRouter>,
+      </BrowserRouter>,
     );
 
     const foodIcon = screen.getByTestId('meals-bottom-btn');

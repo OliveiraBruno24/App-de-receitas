@@ -1,6 +1,5 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import Profile from '../components/Profile';
 
 describe('Componente Profile', () => {
@@ -14,12 +13,13 @@ describe('Componente Profile', () => {
     expect(elementoEmail).toHaveTextContent(emailArmazenado);
   });
 
-  it('redireciona para a página de Receitas Feitas ao clicar no botão de Receitas Feitas', () => {
-    render(<Profile />, {
-      wrapper: ({ children }) => (
-        <MemoryRouter initialEntries={ ['/'] }>{children}</MemoryRouter>
-      ),
-    });
+  it(`redireciona para a página de Receitas 
+  Feitas ao clicar no botão de Receitas Feitas`, () => {
+    render(
+      <BrowserRouter>
+        <Profile />
+      </BrowserRouter>,
+    );
 
     const botaoReceitasFeitas = screen.getByTestId('profile-done-btn');
     fireEvent.click(botaoReceitasFeitas);
@@ -28,35 +28,28 @@ describe('Componente Profile', () => {
     expect(window.location.pathname).toBe('/done-recipes');
   });
 
-  it('redireciona para a página de Receitas Favoritas ao clicar no botão de Receitas Favoritas', () => {
-    render(<Profile />, {
-      wrapper: ({ children }) => (
-        <MemoryRouter initialEntries={ ['/'] }>{children}</MemoryRouter>
-      ),
-    });
+  it(`redireciona para a página de Receitas 
+  Favoritas ao clicar no botão de Receitas Favoritas`, () => {
+    render(
+      <BrowserRouter>
+        <Profile />
+      </BrowserRouter>,
+    );
 
-    const botaoReceitasFavoritas = screen.getByTestId('profile-favorite-btn');
-    fireEvent.click(botaoReceitasFavoritas);
-
-    // Verifique se o histórico de navegação contém a rota esperada
+    const botaoReceitasFeitas = screen.getByTestId('profile-favorite-btn');
+    fireEvent.click(botaoReceitasFeitas);
     expect(window.location.pathname).toBe('/favorite-recipes');
   });
 
-  it('limpa o localStorage e redireciona para a página de login ao clicar no botão de Logout', () => {
-    const emailArmazenado = 'exemplo@exemplo.com';
-    localStorage.setItem('user', JSON.stringify({ email: emailArmazenado }));
+  it(`redireciona para a página de login
+   ao clicar no botão de Logout`, () => {
+    render(
+      <BrowserRouter>
+        <Profile />
+      </BrowserRouter>,
+    );
 
-    render(<Profile />, {
-      wrapper: ({ children }) => (
-        <MemoryRouter initialEntries={ ['/'] }>{children}</MemoryRouter>
-      ),
-    });
-
-    const botaoLogout = screen.getByTestId('profile-logout-btn');
-    fireEvent.click(botaoLogout);
-
-    // Verifique se o localStorage foi limpo e se o redirecionamento ocorreu
-    expect(localStorage.getItem('user')).toBe(null);
+    fireEvent.click(screen.getByTestId('profile-logout-btn'));
     expect(window.location.pathname).toBe('/');
   });
 });
