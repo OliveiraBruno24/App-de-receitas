@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import MealsContext from '../../../context/MealsContext';
 import { Meal } from '../../../utils/types';
 
-function Meals() {
+function MealsCategorys() {
   const { meals } = useContext(MealsContext);
   const [categories, setCategories] = useState<Meal[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -99,4 +99,4 @@ function Meals() {
   );
 }
 
-export default Meals;
+export default MealsCategorys;

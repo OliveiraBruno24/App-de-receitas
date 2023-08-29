@@ -48,8 +48,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
     const fetchByIngredients = async () => {
       if (isDrinksPage) {
         const recipes = await searchDrinksByIngredient(myQuery);
-        console.log(('fetchByIngredientsChamado2'));
-
         setIsDrink(recipes);
       } else if (isMealsPage) {
         const recipes = await searchRecipesByIngredient(myQuery);
