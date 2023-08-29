@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { Drink } from '../../../utils/types';
 import DrinksContext from '../../../context/DrinksContext';
 
-function Drinks() {
+function DrinksCategorys() {
   const { drinks } = useContext(DrinksContext);
   const [categories, setCategories] = useState<Drink[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredDrinks, setFilteredDrinks] = useState<Drink[]>([]);
 
-  // Carrega as categorias iniciais
+  // Carrega as 5 categorias iniciais
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -34,11 +34,12 @@ function Drinks() {
             `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
           );
           const data = await response.json();
+          // se achar a categoria, puxa os 12 primeiros
           setFilteredDrinks(data.drinks.slice(0, 12));
         } catch (error) {
           console.error('Erro de fetching: ', error);
         }
-      } else {
+      } else { // se não puxa os 12 primeiros de geral
         setFilteredDrinks(drinks.slice(0, 12));
       }
     };
@@ -95,4 +96,4 @@ function Drinks() {
   );
 }
 
-export default Drinks;
+export default DrinksCategorys;

@@ -9,11 +9,12 @@ import FavoriteRecipes from './components/Recipes/FavoriteRecipes';
 import DoneRecipes from './components/Recipes/DoneRecipes';
 import Profile from './components/Profile';
 import Footer from './components/Footer/Footer';
-import Meals from './components/Recipes/Meals/Meals';
-import Drinks from './components/Recipes/Drinks/Drinks';
+import MealsCategorys from './components/Recipes/Meals/MealsCategorys';
+import DrinksCategorys from './components/Recipes/Drinks/DrinksCategorys';
 import MealsProvider from './context/MealsProvider';
 import DrinksProvider from './context/DrinksProvider';
-import RecipeDetail from './components/Recipes/RecipeDetails';
+import MealsDetails from './components/Recipes/Meals/MealsDetails';
+import DrinksDetails from './components/Recipes/Drinks/DrinksDetails';
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
           <Routes>
             <Route path="/" element={ <Login /> } />
 
-            <Route path="/meals/:recipeId" element={ <RecipeDetail /> } />
-            <Route path="/drinks/:recipeId" element={ <RecipeDetail /> } />
+            <Route path="/meals/:recipeId" element={ <MealsDetails /> } />
+            <Route path="/drinks/:recipeId" element={ <DrinksDetails /> } />
 
             {/* <Route
               path="/meals/:id-da-receita/in-progress"
@@ -38,8 +39,8 @@ function App() {
               element={ <DrinksInProgress /> }
             /> */}
 
-            <Route path="/meals" element={ <Meals /> } />
-            <Route path="/drinks" element={ <Drinks /> } />
+            <Route path="/meals" element={ <MealsCategorys /> } />
+            <Route path="/drinks" element={ <DrinksCategorys /> } />
             <Route path="/profile" element={ <Profile /> } />
             <Route path="/done-recipes" element={ <DoneRecipes /> } />
             <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />

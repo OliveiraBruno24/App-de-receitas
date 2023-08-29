@@ -23,18 +23,15 @@ function FavoriteRecipes() {
 
   const handleLinkCopy = (recipe: FavoriteAndDoneRecipes) => {
     const newLink = `${window.location.origin}/${recipe.type}s/${recipe.id}`;
+    // clipboard vai copiar p "area de transferencia"
     navigator.clipboard.writeText(newLink).then(() => {
       setCopy(recipe.id);
     });
   };
 
   useEffect(() => {
-    const getFavorite = () => {
-      const favorited = JSON.parse(localStorage
-        .getItem('favoriteRecipes') || '[]') as FavoriteAndDoneRecipes[];
-      setFavorites(favorited);
-    };
-    getFavorite();
+    setFavorites(JSON.parse(localStorage
+      .getItem('favoriteRecipes') || '[]') as FavoriteAndDoneRecipes[]);
   }, []);
 
   return (
@@ -88,6 +85,7 @@ function FavoriteRecipes() {
             </div>
 
             <div>
+              {/* link copied ou nada  */}
               { copy === recipe.id ? <p>Link copied!</p> : null }
 
               <button onClick={ () => handleLinkCopy(recipe) }>
