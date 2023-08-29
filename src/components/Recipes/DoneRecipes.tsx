@@ -23,24 +23,24 @@ function DoneRecipes() {
         <Header />
 
         <button
-          id="AllDone"
           data-testid="filter-by-all-btn"
-          onClick={ () => setFilter(null) }
+          id="AllButtonRecipe"
+          onClick={ () => setFilter(null) } // limpa filtro
         >
           All
         </button>
 
         <button
-          id="FilterDone"
           data-testid="filter-by-meal-btn"
+          id="MealButtonRecipe"
           onClick={ () => setFilter('meal') }
         >
           Meals
         </button>
 
         <button
-          id="DrinksDone"
           data-testid="filter-by-drink-btn"
+          id="DrinksButtonRecipe"
           onClick={ () => setFilter('drink') }
         >
           Drinks
@@ -50,8 +50,9 @@ function DoneRecipes() {
 
       {doneRecipes.map((recipe, index) => {
         const handleShareClick = () => {
+          // type e id são string da props (FavoriteAndDoneRecipes) q esta em doneRecipe
           const recipeURL = `http://localhost:3000/${recipe.type}s/${recipe.id}`;
-
+          // clipboard é a area de transferência
           navigator.clipboard.writeText(recipeURL);
           setTimeout(() => {
             setCopy('Link copied!');
@@ -60,8 +61,10 @@ function DoneRecipes() {
 
         return (
           <div key={ index }>
+            {/* quando filtro é vazio ou algum tipo (drinks/meals) */}
             {filter === null || filter === recipe.type ? (
               <div>
+
                 {/* Display name */}
                 <Link to={ `/${recipe.type}s/${recipe.id}` }>
                   <p data-testid={ `${index}-horizontal-name` }>
