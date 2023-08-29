@@ -12,8 +12,10 @@ import Footer from './components/Footer/Footer';
 import Meals from './components/Recipes/Meals/Meals';
 import Drinks from './components/Recipes/Drinks/Drinks';
 import MealsProvider from './context/MealsProvider';
-import DrinksProvider from './context/DrinksProvider';
+import DrinksProvider from './context/newDrinksProvider';
 import RecipeDetail from './components/Recipes/RecipeDetails';
+import UtilsProvider from './context/UtilsContext';
+import SearchBar from './components/Header/SearchBar';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
     <BrowserRouter>
 
       <Header />
+    <UtilsProvider>
       <MealsProvider>
         <DrinksProvider>
           <Routes>
@@ -38,7 +41,7 @@ function App() {
               element={ <DrinksInProgress /> }
             /> */}
 
-            <Route path="/meals" element={ <Meals /> } />
+            <Route path="/meals" element={ <SearchBar onSearch={handleSearch} setSearchBarInput={setMyQuery}} />
             <Route path="/drinks" element={ <Drinks /> } />
             <Route path="/profile" element={ <Profile /> } />
             <Route path="/done-recipes" element={ <DoneRecipes /> } />
@@ -47,6 +50,7 @@ function App() {
           </Routes>
         </DrinksProvider>
       </MealsProvider>
+     </UtilsProvider>
 
       <Footer />
     </BrowserRouter>

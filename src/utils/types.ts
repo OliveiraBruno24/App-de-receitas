@@ -38,6 +38,13 @@ export type DrinksContextTypes = {
   drinks: Drink[];
 };
 
+export type UtilsContextTypes = {
+  myQuery: string;
+  setMyQuery: React.Dispatch<React.SetStateAction<string>>;
+  searchType: string;
+  setSearchType: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export type FavoriteAndDoneRecipes = {
   id: string,
   type: string,
