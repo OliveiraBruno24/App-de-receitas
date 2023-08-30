@@ -63,9 +63,7 @@ function RecipeDetail() {
           <p data-testid="instructions">{recipe.strInstructions}</p>
 
           <div data-testid="video">
-            {
-            recipe.strYoutube
-          }
+            { recipe.strYoutube }
           </div>
 
         </div>
