@@ -1,24 +1,28 @@
-
 import { createContext, useState } from 'react';
 import { UtilsContextTypes } from '../utils/types';
 
-// export const UtilsContext = createContext({} as UtilsContextTypes);
-export const UtilsContext = createContext<UtilsContextTypes | undefined>(undefined);
-
+export const UtilsContext = createContext({} as UtilsContextTypes);
+// export const UtilsContext = createContext<UtilsContextTypes | undefined>(undefined);
 
 type UtilsProviderType = {
-    children: React.ReactNode
-}
+  children: React.ReactNode
+};
 
- function UtilsProvider({children}: UtilsProviderType) {
-const [ myQuery, setMyQuery] = useState('');
-const [searchType, setSearchType] = useState('ingredient');
+function UtilsProvider({ children }: UtilsProviderType) {
+  const [myQuery, setMyQuery] = useState('');
+  const [searchType, setSearchType] = useState('ingredient');
+  const [isMeal, setIsMeal] = useState(true);
 
-const contextValue = { myQuery, setMyQuery, searchType, setSearchType };
+  const contextValue = { myQuery,
+    setMyQuery,
+    searchType,
+    setSearchType,
+    isMeal,
+    setIsMeal };
 
-return (
+  return (
     <UtilsContext.Provider value={ contextValue }>
-    { children }
+      { children }
     </UtilsContext.Provider>
   );
 }

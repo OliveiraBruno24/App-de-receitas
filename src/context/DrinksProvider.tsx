@@ -20,7 +20,7 @@ function DrinksProvider({ children }: DrinksProviderType) {
     getDrinksInfo();
   }, []);
 
-  const contextValue = { drinks };
+  const contextValue = { drinks, setDrinks };
 
   return (
     <DrinksContext.Provider value={ contextValue }>

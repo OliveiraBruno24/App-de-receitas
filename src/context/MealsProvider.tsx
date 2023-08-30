@@ -20,7 +20,7 @@ function MealsProvider({ children }: MealsProviderType) {
     getMealsInfo();
   }, []);
 
-  const contextValue = { meals };
+  const contextValue = { meals, setMeals };
   return (
     <MealsContext.Provider value={ contextValue }>
       {children}
