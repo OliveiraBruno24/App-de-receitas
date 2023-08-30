@@ -1,14 +1,6 @@
 import { screen, fireEvent, render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { vi } from 'vitest';
 import Header from '../components/Header/Header';
-
-import SearchBar from '../components/Header/SearchBar';
-import { Meal, Drink } from '../utils/types';
-
-afterEach(() => {
-  vi.clearAllMocks();
-});
 
 describe('Componente Header', () => {
   const PAGE_TITLE = 'page-title';
@@ -139,6 +131,7 @@ describe('Componente Header', () => {
     // Verifica que a barra de pesquisa não está mais visível
     expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
   });
+
   test('Testa função getTitle()', () => {
     render(
       <MemoryRouter initialEntries={ ['/meals'] }>

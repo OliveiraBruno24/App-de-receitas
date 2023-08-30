@@ -45,7 +45,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
     if ((isMeal.length === 1) && isMeal[0].idMeal) {
       navigate(`/meals/${isMeal[0].idMeal}`);
     }
-  }, [isDrink, isMeal]);
+  }, [isDrink, isMeal, navigate]);
 
   const fetchByFistLetter = async () => {
     if (isDrinksPage) {
@@ -93,7 +93,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
       window.alert('Your search must have only 1 (one) character');
       return;
     }
-
     try {
       if (searchType === 'ingredient') {
         fetchByIngredients();

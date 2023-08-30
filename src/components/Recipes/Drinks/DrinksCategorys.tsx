@@ -1,52 +1,51 @@
-import { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MealsContext from '../../../context/MealsContext';
-import { Meal } from '../../../utils/types';
+import { Drink } from '../../../utils/types';
+import DrinksContext from '../../../context/DrinksContext';
 
-function Meals() {
-  const { meals } = useContext(MealsContext);
-  const [categories, setCategories] = useState<Meal[]>([]);
+function DrinksCategorys() {
+  const { drinks } = useContext(DrinksContext);
+  const [categories, setCategories] = useState<Drink[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
+  const [filteredDrinks, setFilteredDrinks] = useState<Drink[]>([]);
 
-  // Carrega as categorias no carregamento inicial
+  // Carrega as 5 categorias iniciais
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(
-          'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+          'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
         );
         const data = await response.json();
-        setCategories(data.meals.slice(0, 5));
+        setCategories(data.drinks.slice(0, 5));
       } catch (error) {
         console.error('Erro de fetching: ', error);
       }
     };
-
     fetchCategories();
   }, []);
 
   // Filtra as receitas com base na categoria selecionada ou exibe todas as receitas
   useEffect(() => {
-    const fetchFilteredMeals = async () => {
+    const fetchFilteredDrinks = async () => {
       if (selectedCategory) {
         try {
           const response = await fetch(
-            `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
+            `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
           );
           const data = await response.json();
-          console.log('data', data);
-          setFilteredMeals(data.meals.slice(0, 12));
+          // se achar a categoria, puxa os 12 primeiros
+          setFilteredDrinks(data.drinks.slice(0, 12));
         } catch (error) {
           console.error('Erro de fetching: ', error);
         }
-      } else {
-        setFilteredMeals(meals.slice(0, 12));
+      } else { // se não puxa os 12 primeiros de geral
+        setFilteredDrinks(drinks.slice(0, 12));
       }
     };
 
-    fetchFilteredMeals();
-  }, [meals, selectedCategory]);
+    fetchFilteredDrinks();
+  }, [selectedCategory, drinks]);
 
   const handleCategoryClick = (category: string) => {
     if (selectedCategory === category) {
@@ -63,14 +62,12 @@ function Meals() {
   return (
     <div>
       <div>
-        {/* Botão para exibir todas as receitas */}
         <button
           onClick={ handleClearFilters }
           data-testid="All-category-filter"
         >
           All
         </button>
-        {/* Lista de botões de categorias */}
         {categories.map((categoryName) => (
           <button
             key={ categoryName.strCategory }
@@ -82,15 +79,14 @@ function Meals() {
         ))}
       </div>
       <div>
-        {/* Lista de receitas filtradas */}
-        {filteredMeals.map((meal, index) => (
-          <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
-            <div data-testid={ `${index}-recipe-card` }>
-              <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>
+        {filteredDrinks.map((drink, index) => (
+          <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
+            <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
+              <h2 data-testid={ `${index}-card-name` }>{drink.strDrink}</h2>
               <img
                 data-testid={ `${index}-card-img` }
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
               />
             </div>
           </Link>
@@ -100,4 +96,4 @@ function Meals() {
   );
 }
 
-export default Meals;
+export default DrinksCategorys;

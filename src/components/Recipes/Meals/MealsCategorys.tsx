@@ -1,50 +1,52 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Drink } from '../../../utils/types';
-import DrinksContext from '../../../context/DrinksContext';
+import MealsContext from '../../../context/MealsContext';
+import { Meal } from '../../../utils/types';
 
-function Drinks() {
-  const { drinks } = useContext(DrinksContext);
-  const [categories, setCategories] = useState<Drink[]>([]);
+function MealsCategorys() {
+  const { meals } = useContext(MealsContext);
+  const [categories, setCategories] = useState<Meal[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [filteredDrinks, setFilteredDrinks] = useState<Drink[]>([]);
+  const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
 
-  // Carrega as categorias iniciais
+  // Carrega as categorias no carregamento inicial
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(
-          'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+          'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
         );
         const data = await response.json();
-        setCategories(data.drinks.slice(0, 5));
+        setCategories(data.meals.slice(0, 5));
       } catch (error) {
         console.error('Erro de fetching: ', error);
       }
     };
+
     fetchCategories();
   }, []);
 
   // Filtra as receitas com base na categoria selecionada ou exibe todas as receitas
   useEffect(() => {
-    const fetchFilteredDrinks = async () => {
+    const fetchFilteredMeals = async () => {
       if (selectedCategory) {
         try {
           const response = await fetch(
-            `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
+            `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
           );
           const data = await response.json();
-          setFilteredDrinks(data.drinks.slice(0, 12));
+          console.log('data', data);
+          setFilteredMeals(data.meals.slice(0, 12));
         } catch (error) {
           console.error('Erro de fetching: ', error);
         }
       } else {
-        setFilteredDrinks(drinks.slice(0, 12));
+        setFilteredMeals(meals.slice(0, 12));
       }
     };
 
-    fetchFilteredDrinks();
-  }, [selectedCategory, drinks]);
+    fetchFilteredMeals();
+  }, [meals, selectedCategory]);
 
   const handleCategoryClick = (category: string) => {
     if (selectedCategory === category) {
@@ -61,12 +63,14 @@ function Drinks() {
   return (
     <div>
       <div>
+        {/* Botão para exibir todas as receitas */}
         <button
           onClick={ handleClearFilters }
           data-testid="All-category-filter"
         >
           All
         </button>
+        {/* Lista de botões de categorias */}
         {categories.map((categoryName) => (
           <button
             key={ categoryName.strCategory }
@@ -78,14 +82,15 @@ function Drinks() {
         ))}
       </div>
       <div>
-        {filteredDrinks.map((drink, index) => (
-          <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
-            <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
-              <h2 data-testid={ `${index}-card-name` }>{drink.strDrink}</h2>
+        {/* Lista de receitas filtradas */}
+        {filteredMeals.map((meal, index) => (
+          <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
+            <div data-testid={ `${index}-recipe-card` }>
+              <h2 data-testid={ `${index}-card-name` }>{meal.strMeal}</h2>
               <img
                 data-testid={ `${index}-card-img` }
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
               />
             </div>
           </Link>
@@ -95,4 +100,4 @@ function Drinks() {
   );
 }
 
-export default Drinks;
+export default MealsCategorys;

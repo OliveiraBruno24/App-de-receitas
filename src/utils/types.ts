@@ -1,11 +1,12 @@
 export interface SearchBarProps {
-  setSearchBarInput(arg0: string): unknown;
   onSearch: (
-    query: string,
-    searchType: string,
+    query: string, // consulta de busca.
+    searchType: string, // tipo de busca, ingredientes, nome ou first letter
     setIsMeal: (meals: Meal[]) => void,
+    /* função que recebe um array de (Meal[] ou
+    Drink[]) como argumento e não retorna nada. */
     setIsDrink: (drinks: Drink[]) => void,
-  ) => void;
+  ) => void; // sem retorno
 }
 
 export interface Meal {
@@ -58,5 +59,5 @@ export type FavoriteAndDoneRecipes = {
   name: string,
   image:string,
   doneDate: string,
-  tags: string,
+  tags: string[],
 };

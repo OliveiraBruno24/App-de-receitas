@@ -13,7 +13,6 @@ function App() {
   return (
 
     <BrowserRouter>
-
       <UtilsProvider>
         <MealsProvider>
           <DrinksProvider>
