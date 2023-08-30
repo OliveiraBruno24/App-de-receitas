@@ -28,7 +28,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
   const [searchType, setSearchType] = useState('ingredient');
   const [isDrink, setIsDrink] = useState<Drink[]>([]);
   const [isMeal, setIsMeal] = useState<Meal[]>([]);
-  console.log('isDrink', isDrink);
 
   const isDrinksPage = location.pathname === '/drinks';
   const isMealsPage = location.pathname === '/meals';
@@ -37,12 +36,12 @@ function SearchBar({ onSearch }: SearchBarProps) {
   const { setMeals } = useContext(MealsContext);
 
   useEffect(() => {
-    if ((isDrink.length === 1) && isDrink[0].idDrink) {
+    if (isDrink && isDrink.length === 1 && isDrink[0].idDrink) {
       navigate(`/drinks/${isDrink[0].idDrink}`);
       return;
     }
 
-    if ((isMeal.length === 1) && isMeal[0].idMeal) {
+    if (isMeal && isMeal.length === 1 && isMeal[0].idMeal) {
       navigate(`/meals/${isMeal[0].idMeal}`);
     }
   }, [isDrink, isMeal, navigate]);
@@ -83,8 +82,8 @@ function SearchBar({ onSearch }: SearchBarProps) {
       const recipes = await searchRecipesByIngredient(myQuery);
       console.log('recipes', recipes);
 
-      setIsMeal(recipes.map((item) => item));
-      setMeals(recipes.map((item) => item.meals));
+      setIsMeal(recipes);
+      setMeals(recipes);
     }
   };
 
@@ -93,6 +92,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
       window.alert('Your search must have only 1 (one) character');
       return;
     }
+
     try {
       if (searchType === 'ingredient') {
         fetchByIngredients();
