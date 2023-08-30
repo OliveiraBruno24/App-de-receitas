@@ -35,6 +35,7 @@ function MealsCategorys() {
             `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
           );
           const data = await response.json();
+          console.log('data', data);
           setFilteredMeals(data.meals.slice(0, 12));
         } catch (error) {
           console.error('Erro de fetching: ', error);

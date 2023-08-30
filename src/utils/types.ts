@@ -33,10 +33,21 @@ export interface Drink {
 
 export type MealsContextTypes = {
   meals: Meal[];
+  setMeals: React.Dispatch<React.SetStateAction<Meal[]>>
 };
 
 export type DrinksContextTypes = {
   drinks: Drink[];
+  setDrinks: React.Dispatch<React.SetStateAction<Drink[]>>
+};
+
+export type UtilsContextTypes = {
+  myQuery: string;
+  setMyQuery: React.Dispatch<React.SetStateAction<string>>;
+  searchType: string;
+  setSearchType: React.Dispatch<React.SetStateAction<string>>;
+  isMeal: boolean;
+  setIsMeal:React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export type FavoriteAndDoneRecipes = {

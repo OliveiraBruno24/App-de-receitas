@@ -28,7 +28,7 @@ export async function searchRecipesByFirstLetter(letter: string): Promise<Meal[]
 export async function searchDrinksByIngredient(ingredient: string): Promise<Drink[]> {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const data = await response.json();
-  console.log('meals ingredinte: ', data);
+  console.log('drinks ingredinte: ', data);
   return data.drinks;
 }
 
