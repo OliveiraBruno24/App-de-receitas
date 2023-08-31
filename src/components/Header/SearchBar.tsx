@@ -28,6 +28,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
   const [searchType, setSearchType] = useState('ingredient');
   const [isDrink, setIsDrink] = useState<Drink[]>([]);
   const [isMeal, setIsMeal] = useState<Meal[]>([]);
+  console.log(isMeal);
 
   const isDrinksPage = location.pathname === '/drinks';
   const isMealsPage = location.pathname === '/meals';
