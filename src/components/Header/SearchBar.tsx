@@ -19,7 +19,7 @@ import MealsContext from '../../context/MealsContext';
 
 /* onSearch é o callback q manda as informações p
 componente pai (App), p saber oq foi pesquisado */
-function SearchBar({ onSearch }: SearchBarProps) {
+function SearchBar() {
   const FIRST_LETTER = 'first-letter';
   const navigate = useNavigate();
   const location = useLocation();
@@ -100,8 +100,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
       } else if (searchType === FIRST_LETTER) {
         fetchByFistLetter();
       }
-
-      onSearch(myQuery, searchType, setIsMeal, setIsDrink);
     } catch (error) {
       console.error('Error occurred:', error);
     }

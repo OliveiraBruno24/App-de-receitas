@@ -1,9 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import DrinksContext from '../../context/DrinksContext';
 
 function Header() {
   const location = useLocation();
@@ -13,9 +12,6 @@ function Header() {
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
   };
-
-  const drinkContext = useContext(DrinksContext);
-  console.log('drinkzzzzz', drinkContext.setDrinks);
 
   const getTitle = () => {
     switch (location.pathname) {
@@ -52,7 +48,7 @@ function Header() {
         )}
 
         {isSearchVisible && (
-          <SearchBar onSearch={ () => {} } />
+          <SearchBar />
         )}
       </div>
       <h1 data-testid="page-title">{getTitle()}</h1>
