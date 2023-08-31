@@ -4,7 +4,7 @@ import { Drink, Meal } from './types';
 export async function searchRecipesByIngredient(ingredient: string): Promise<Meal[]> {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const data = await response.json();
-  console.log('api meals ingredient: ', data);
+  // console.log('api meals ingredient: ', data);
   return data.meals;
 }
 
@@ -12,7 +12,7 @@ export async function searchRecipesByIngredient(ingredient: string): Promise<Mea
 export async function searchRecipesByName(name: string): Promise<Meal[]> {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
   const data = await response.json();
-  console.log('api meals nome: ', data);
+  // console.log('api meals nome: ', data);
   return data.meals;
 }
 
@@ -20,7 +20,7 @@ export async function searchRecipesByName(name: string): Promise<Meal[]> {
 export async function searchRecipesByFirstLetter(letter: string): Promise<Meal[]> {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
   const data = await response.json();
-  console.log('api meals letra: ', data);
+  // console.log('api meals letra: ', data);
   return data.meals;
 }
 
@@ -28,7 +28,7 @@ export async function searchRecipesByFirstLetter(letter: string): Promise<Meal[]
 export async function searchDrinksByIngredient(ingredient: string): Promise<Drink[]> {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const data = await response.json();
-  console.log('drinks ingredinte: ', data);
+  // console.log('drinks ingredinte: ', data);
   return data.drinks;
 }
 
@@ -36,7 +36,7 @@ export async function searchDrinksByIngredient(ingredient: string): Promise<Drin
 export async function searchDrinksByName(name: string): Promise<Drink[]> {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
   const data = await response.json();
-  console.log('meals ingredinte: ', data);
+  // console.log('meals ingredinte: ', data);
   return data.drinks;
 }
 

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../RecipeDetails.css';
 
 function RecipeDetail() {
   const { type, recipeId } = useParams();
   const [recipe, setRecipe] = useState<any | null>(null);
+  // const [recommendation, setRecommendation] = useState<any | null>(null);
+  const [startRecipe, setStartRecipe] = useState(false);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -19,7 +22,11 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId, type]);
+  }, [recipeId]);
+
+  const HandleClick = () => {
+    setStartRecipe(!startRecipe);
+  };
 
   return (
     <div>
@@ -44,19 +51,46 @@ function RecipeDetail() {
           <h3>Ingredientes:</h3>
 
           <div>
-            {Object.keys(recipe)
-              .filter((key) => key.includes('Ingredient')
-              && recipe[key]).map((key, index) => (
-
-                <div key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                  {recipe[key]}
-                  {' '}
-                  -
-                  {' '}
-                  {/* pega o proximo item da receita */}
-                  {recipe[`strMeasure${index + 1}`]}
-                </div>
-              ))}
+            {startRecipe ? (
+            // true
+              Object.keys(recipe)
+                .filter((key) => key.includes('Ingredient') && recipe[key])
+                .map((key, index) => (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    <input
+                      type="checkbox"
+                      key={ index }
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                    />
+                    {recipe[key]}
+                    {' '}
+                    -
+                    {' '}
+                    {/* proximo item */}
+                    {recipe[`strMeasure${index + 1}`]}
+                  </div>
+                ))
+            ) : (
+            // false
+              Object.keys(recipe)
+                .filter((key) => key.includes('Ingredient') && recipe[key])
+                .map((key, index) => (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {recipe[key]}
+                    {' '}
+                    -
+                    {' '}
+                    {/* proximo item */}
+                    {recipe[`strMeasure${index + 1}`]}
+                  </div>
+                ))
+            )}
           </div>
 
           <h3>Instructions:</h3>
@@ -65,6 +99,18 @@ function RecipeDetail() {
           <div data-testid="video">
             { recipe.strYoutube }
           </div>
+
+          <button
+            data-testid="start-recipe-btn"
+            id="recipeButton"
+            onClick={ HandleClick }
+          >
+            { startRecipe ? 'Start Recipe' : 'Continue Recipe' }
+          </button>
+
+          <h1>
+            { startRecipe ? '' : 'Recomendações' }
+          </h1>
 
         </div>
       ) : (null) }

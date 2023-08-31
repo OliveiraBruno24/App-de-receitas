@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../RecipeDetails.css';
 
 function RecipeDetail() {
   const { type, recipeId } = useParams();
   const [recipe, setRecipe] = useState<any | null>(null);
+  const [startRecipe, setStartRecipe] = useState(false);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -20,6 +22,10 @@ function RecipeDetail() {
 
     fetchRecipeDetails();
   }, [recipeId, type]);
+
+  const HandleClick = () => {
+    setStartRecipe(!startRecipe);
+  };
 
   return (
     <div>
@@ -60,6 +66,18 @@ function RecipeDetail() {
 
           <h3>Instructions:</h3>
           <p data-testid="instructions">{recipe.strInstructions}</p>
+
+          <button
+            data-testid="start-recipe-btn"
+            id="recipeButton"
+            onClick={ HandleClick }
+          >
+            { startRecipe ? 'Start Recipe' : 'Continue Recipe' }
+          </button>
+
+          <h1>
+            { startRecipe ? '' : 'Recomendações' }
+          </h1>
 
         </div>
       ) : (null) }
