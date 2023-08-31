@@ -8,6 +8,7 @@ type MealsProviderType = {
 
 function MealsProvider({ children }: MealsProviderType) {
   const [meals, setMeals] = useState<Meal[]>([]);
+  const [mealsContext, setMealsContext] = useState<Meal | undefined>(undefined);
 
   useEffect(() => {
     const getMealsInfo = async () => {
@@ -20,7 +21,7 @@ function MealsProvider({ children }: MealsProviderType) {
     getMealsInfo();
   }, []);
 
-  const contextValue = { meals, setMeals };
+  const contextValue = { meals, setMeals, mealsContext, setMealsContext };
   return (
     <MealsContext.Provider value={ contextValue }>
       {children}

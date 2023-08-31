@@ -29,16 +29,21 @@ export interface Drink {
   strCategory: string;
   strInstructions: string;
   strDrinkThumb: string;
+
 }
 
 export type MealsContextTypes = {
   meals: Meal[];
   setMeals: React.Dispatch<React.SetStateAction<Meal[]>>
+  mealsContext: Meal | undefined;
+  setMealsContext:React.Dispatch<React.SetStateAction<Meal | undefined>>
 };
 
 export type DrinksContextTypes = {
   drinks: Drink[];
   setDrinks: React.Dispatch<React.SetStateAction<Drink[]>>
+  recipeContext:Drink | undefined;
+  setRecipeContext:React.Dispatch<React.SetStateAction<Drink | undefined>>
 };
 
 export type UtilsContextTypes = {

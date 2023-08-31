@@ -8,6 +8,7 @@ type DrinksProviderType = {
 
 function DrinksProvider({ children }: DrinksProviderType) {
   const [drinks, setDrinks] = useState<Drink[]>([]);
+  const [recipeContext, setRecipeContext] = useState<Drink | undefined>(undefined);
   // console.log('drinks', drinks);
 
   useEffect(() => {
@@ -20,8 +21,8 @@ function DrinksProvider({ children }: DrinksProviderType) {
     getDrinksInfo();
   }, []);
 
-  const contextValue = { drinks, setDrinks };
-
+  const contextValue = { drinks, setDrinks, recipeContext, setRecipeContext };
+  // como resolver o erro do value?
   return (
     <DrinksContext.Provider value={ contextValue }>
       { children }

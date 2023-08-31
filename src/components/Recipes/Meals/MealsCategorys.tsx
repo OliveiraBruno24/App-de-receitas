@@ -8,7 +8,6 @@ function MealsCategorys() {
   const [categories, setCategories] = useState<Meal[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
-  console.log('filteredMeals', filteredMeals);
 
   // Carrega as categorias no carregamento inicial
   useEffect(() => {

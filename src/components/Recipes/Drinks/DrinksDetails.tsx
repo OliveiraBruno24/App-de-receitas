@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
+import DrinksContext from '../../../context/DrinksContext';
 
 function RecipeDetail() {
-  const { type, recipeId } = useParams();
+  const { recipeId } = useParams();
+  const { setRecipeContext } = useContext(DrinksContext);
+
   const [recipe, setRecipe] = useState<any | null>(null);
-  const [startRecipe, setStartRecipe] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -15,16 +19,21 @@ function RecipeDetail() {
         );
         const data = await response.json();
         setRecipe(data.drinks?.[0]);
+        setRecipeContext(data.drinks?.[0]);
       } catch (error) {
         console.error('deu zebra aqui: ', error);
       }
     };
 
     fetchRecipeDetails();
-  }, [recipeId, type]);
+  }, [recipeId]);
+
+  // const HandleClick = () => {
+  //   setStartRecipe(!startRecipe);
+  // };
 
   const HandleClick = () => {
-    setStartRecipe(!startRecipe);
+    navigate(`/drinks/${recipeId}/in-progress`);
   };
 
   return (
@@ -72,12 +81,13 @@ function RecipeDetail() {
             id="recipeButton"
             onClick={ HandleClick }
           >
-            { startRecipe ? 'Start Recipe' : 'Continue Recipe' }
+            Continue Recipe
           </button>
-
+          {/*
           <h1>
+          aqui vai o carroussel
             { startRecipe ? '' : 'Recomendações' }
-          </h1>
+          </h1> */}
 
         </div>
       ) : (null) }

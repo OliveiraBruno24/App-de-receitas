@@ -7,6 +7,8 @@ import MealsDetails from './components/Recipes/Meals/MealsDetails';
 import DrinksDetails from './components/Recipes/Drinks/DrinksDetails';
 import MealsCategorys from './components/Recipes/Meals/MealsCategorys';
 import DrinksCategorys from './components/Recipes/Drinks/DrinksCategorys';
+import DrinksInProgress from './components/Recipes/Drinks/DrinksInProgress';
+import MealsInProgress from './components/Recipes/Meals/MealsInProgress';
 
 export default function Router() {
   return (
@@ -17,20 +19,19 @@ export default function Router() {
 
       <Route path="/drinks/:recipeId" element={ <DrinksDetails /> } />
 
-      {/* <Route
-              path="/meals/:id-da-receita/in-progress"
-              element={ <MealsInProgress /> }
-            />
-            <Route
-              path="/drinks/:id-da-receita/in-progress"
-              element={ <DrinksInProgress /> }
-            /> */}
-
       <Route path="/meals" element={ <MealsCategorys /> } />
       <Route path="/drinks" element={ <DrinksCategorys /> } />
       <Route path="/profile" element={ <Profile /> } />
       <Route path="/done-recipes" element={ <DoneRecipes /> } />
       <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
+      <Route
+        path="/drinks/:recipeId/in-progress"
+        element={ <DrinksInProgress /> }
+      />
+      <Route
+        path="/meals/:recipeId/in-progress"
+        element={ <MealsInProgress /> }
+      />
 
     </Routes>
   );

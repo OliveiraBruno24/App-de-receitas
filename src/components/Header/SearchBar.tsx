@@ -12,7 +12,7 @@ import {
 } from '../../utils/Api';
 
 // tipagem
-import { Drink, Meal, SearchBarProps } from '../../utils/types';
+import { Drink, Meal } from '../../utils/types';
 import Footer from '../Footer/Footer';
 import DrinksContext from '../../context/DrinksContext';
 import MealsContext from '../../context/MealsContext';
