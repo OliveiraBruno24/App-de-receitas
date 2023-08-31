@@ -10,9 +10,9 @@ function DoneRecipes() {
   const [copy, setCopy] = useState('');
 
   useEffect(() => {
-    const DoneRecipesLH = localStorage.getItem('doneRecipes');
-    if (DoneRecipesLH) {
-      const newDoneRecipes: FavoriteAndDoneRecipes[] = JSON.parse(DoneRecipesLH);
+    const DoneRecipesLS = localStorage.getItem('doneRecipes');
+    if (DoneRecipesLS) {
+      const newDoneRecipes: FavoriteAndDoneRecipes[] = JSON.parse(DoneRecipesLS);
       setDoneRecipes(newDoneRecipes);
     }
   }, []);

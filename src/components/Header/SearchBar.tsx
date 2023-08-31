@@ -39,7 +39,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
   useEffect(() => {
     if (isDrink && isDrink.length === 1 && isDrink[0].idDrink) {
       navigate(`/drinks/${isDrink[0].idDrink}`);
-      return;
     }
 
     if (isMeal && isMeal.length === 1 && isMeal[0].idMeal) {
@@ -64,10 +63,8 @@ function SearchBar({ onSearch }: SearchBarProps) {
       const recipes = await searchDrinksByName(myQuery);
       setIsDrink(recipes);
       setDrinks(recipes);
-      console.log('recipesDrinks', recipes);
     } else if (isMealsPage) {
       const recipes = await searchRecipesByName(myQuery);
-
       setIsMeal(recipes);
       setMeals(recipes);
     }
@@ -81,7 +78,6 @@ function SearchBar({ onSearch }: SearchBarProps) {
       setDrinks(recipes);
     } else if (isMealsPage) {
       const recipes = await searchRecipesByIngredient(myQuery);
-      console.log('recipes', recipes);
 
       setIsMeal(recipes);
       setMeals(recipes);
@@ -92,6 +88,10 @@ function SearchBar({ onSearch }: SearchBarProps) {
     if (searchType === FIRST_LETTER && myQuery.length !== 1) {
       window.alert('Your search must have only 1 (one) character');
       return;
+    }
+
+    if (isMeal.length === 0 || isDrink.length === 0) {
+      window.alert('Sorry, we havent found any recipes for these filters');
     }
 
     try {
@@ -158,7 +158,9 @@ function SearchBar({ onSearch }: SearchBarProps) {
       <button data-testid="exec-search-btn" onClick={ HandleSearch }>
         Search
       </button>
+
       <Footer />
+
     </div>
   );
 }
