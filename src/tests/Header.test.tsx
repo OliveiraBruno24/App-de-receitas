@@ -57,6 +57,16 @@ describe('Componente Header', () => {
     });
   });
 
+  test('Testa título da página para "profile', () => {
+    render(
+      <MemoryRouter initialEntries={ ['/profile'] } initialIndex={ 0 }>
+        <Header />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId(PAGE_TITLE)).toHaveTextContent('Profile');
+  });
+
   test('Testa título da página para "Done Recipes"', () => {
     render(
       <MemoryRouter initialEntries={ ['/done-recipes'] } initialIndex={ 0 }>
