@@ -1,5 +1,5 @@
-#recipeButton {
-  position: fixed;
-  bottom: 0px;
+.continueButton {
+  bottom: 0;
   margin-left: 30%;
+  position: fixed;
 }

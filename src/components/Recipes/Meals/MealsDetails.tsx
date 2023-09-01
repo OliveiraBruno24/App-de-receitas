@@ -85,6 +85,7 @@ function RecipeDetail() {
             data-testid="start-recipe-btn"
             id="recipeButton"
             onClick={ HandleClick }
+            className="continueButton"
           >
             Continue Recipe
           </button>
