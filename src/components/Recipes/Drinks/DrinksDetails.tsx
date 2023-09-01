@@ -88,7 +88,12 @@ function RecipeDetail() {
           aqui vai o carroussel
             { startRecipe ? '' : 'Recomendações' }
           </h1> */}
-
+          <button data-testid="share-btn">
+            Share
+          </button>
+          <button data-testid="favorite-btn">
+            Favorite
+          </button>
         </div>
       ) : (null) }
       ;
