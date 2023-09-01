@@ -8,6 +8,9 @@ type MealsProviderType = {
 
 function MealsProvider({ children }: MealsProviderType) {
   const [meals, setMeals] = useState<Meal[]>([]);
+  const [mealsContext, setMealsContext] = useState<Meal[]>([]);
+  const [favContext, setFavContext] = useState<Meal[]>([]);
+  // console.log('fav', favContext);
 
   useEffect(() => {
     const getMealsInfo = async () => {
@@ -20,7 +23,12 @@ function MealsProvider({ children }: MealsProviderType) {
     getMealsInfo();
   }, []);
 
-  const contextValue = { meals, setMeals };
+  const contextValue = { meals,
+    setMeals,
+    mealsContext,
+    setMealsContext,
+    favContext,
+    setFavContext };
   return (
     <MealsContext.Provider value={ contextValue }>
       {children}

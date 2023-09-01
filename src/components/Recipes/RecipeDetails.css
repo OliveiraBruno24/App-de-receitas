@@ -1,5 +1,5 @@
 #recipeButton {
+  bottom: 0;
+  margin-left: 30%;
   position: fixed;
-  bottom: 0px;
-  margin-left: 500px;
 }

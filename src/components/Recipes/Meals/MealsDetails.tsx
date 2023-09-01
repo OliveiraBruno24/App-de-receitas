@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
+import MealsContext from '../../../context/MealsContext';
 
 function RecipeDetail() {
-  const { type, recipeId } = useParams();
+  const { recipeId } = useParams();
+  const { setMealsContext, mealsContext, setFavContext } = useContext(MealsContext);
+
   const [recipe, setRecipe] = useState<any | null>(null);
-  // const [recommendation, setRecommendation] = useState<any | null>(null);
-  const [startRecipe, setStartRecipe] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+
+  const navigate = useNavigate();
+  // const [recommendation, setRecommendation] = useState<any | null>(null);,
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -16,6 +22,7 @@ function RecipeDetail() {
         );
         const data = await response.json();
         setRecipe(data.meals?.[0]);
+        setMealsContext([data.meals?.[0]]);
       } catch (error) {
         console.error('deu zebra aqui: ', error);
       }
@@ -25,7 +32,31 @@ function RecipeDetail() {
   }, [recipeId]);
 
   const HandleClick = () => {
-    setStartRecipe(!startRecipe);
+    navigate(`/meals/${recipeId}/in-progress`);
+  };
+
+  // Implemente a solução de forma que, ao clicar no botão de compartilhar, o link de detalhes da receita seja copiado para o clipboard e uma mensagem avisando que ele foi copiado apareça na tela em uma tag HTML. Não pode ser window.alert.
+
+  const handleShare = () => {
+    const { location: { pathname } } = window;
+    const link = `http://localhost:3000${pathname}`;
+    navigator.clipboard.writeText(link);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (favorite === true) {
+      setFavContext(mealsContext);
+    } else {
+      setFavContext([]);
+    }
+  }, [favorite, mealsContext, setFavContext]);
+
+  const handleFavoritre = () => {
+    setFavorite(!favorite);
   };
 
   return (
@@ -51,46 +82,22 @@ function RecipeDetail() {
           <h3>Ingredientes:</h3>
 
           <div>
-            {startRecipe ? (
-            // true
-              Object.keys(recipe)
-                .filter((key) => key.includes('Ingredient') && recipe[key])
-                .map((key, index) => (
-                  <div
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    <input
-                      type="checkbox"
-                      key={ index }
-                      data-testid={ `${index}-ingredient-name-and-measure` }
-                    />
-                    {recipe[key]}
-                    {' '}
-                    -
-                    {' '}
-                    {/* proximo item */}
-                    {recipe[`strMeasure${index + 1}`]}
-                  </div>
-                ))
-            ) : (
-            // false
-              Object.keys(recipe)
-                .filter((key) => key.includes('Ingredient') && recipe[key])
-                .map((key, index) => (
-                  <div
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {recipe[key]}
-                    {' '}
-                    -
-                    {' '}
-                    {/* proximo item */}
-                    {recipe[`strMeasure${index + 1}`]}
-                  </div>
-                ))
-            )}
+
+            {Object.keys(recipe)
+              .filter((key) => key.includes('Ingredient') && recipe[key])
+              .map((key, index) => (
+                <div
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {recipe[key]}
+                  {' '}
+                  -
+                  {' '}
+                  {/* proximo item */}
+                  {recipe[`strMeasure${index + 1}`]}
+                </div>
+              ))}
           </div>
 
           <h3>Instructions:</h3>
@@ -104,17 +111,27 @@ function RecipeDetail() {
             data-testid="start-recipe-btn"
             id="recipeButton"
             onClick={ HandleClick }
+            className="continueButton"
           >
-            { startRecipe ? 'Start Recipe' : 'Continue Recipe' }
+            Continue Recipe
           </button>
-
-          <h1>
-            { startRecipe ? '' : 'Recomendações' }
-          </h1>
-
+          {copied
+            && <p>Link copied!</p>}
+          <button
+            data-testid="share-btn"
+            onClick={ handleShare }
+          >
+            Share
+          </button>
+          <button
+            data-testid="favorite-btn"
+            onClick={ handleFavoritre }
+          >
+            {favorite ? 'unfavorite' : 'favorite' }
+          </button>
         </div>
       ) : (null) }
-      ;
+
     </div>
   );
 }
