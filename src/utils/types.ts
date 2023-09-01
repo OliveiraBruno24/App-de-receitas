@@ -35,8 +35,10 @@ export interface Drink {
 export type MealsContextTypes = {
   meals: Meal[];
   setMeals: React.Dispatch<React.SetStateAction<Meal[]>>
-  mealsContext: Meal | undefined;
-  setMealsContext:React.Dispatch<React.SetStateAction<Meal | undefined>>
+  mealsContext: Meal[];
+  setMealsContext:React.Dispatch<React.SetStateAction<Meal[]>>
+  favContext: Meal[];
+  setFavContext:React.Dispatch<React.SetStateAction<Meal[]>>
 };
 
 export type DrinksContextTypes = {

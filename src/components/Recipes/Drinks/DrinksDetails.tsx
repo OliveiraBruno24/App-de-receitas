@@ -8,6 +8,8 @@ function RecipeDetail() {
   const { setRecipeContext } = useContext(DrinksContext);
 
   const [recipe, setRecipe] = useState<any | null>(null);
+  const [copied, setCopied] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -34,6 +36,16 @@ function RecipeDetail() {
 
   const HandleClick = () => {
     navigate(`/drinks/${recipeId}/in-progress`);
+  };
+
+  const handleShare = () => {
+    const { location: { pathname } } = window;
+    const link = `http://localhost:3000${pathname}`;
+    navigator.clipboard.writeText(link);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
   };
 
   return (
@@ -83,12 +95,12 @@ function RecipeDetail() {
           >
             Continue Recipe
           </button>
-          {/*
-          <h1>
-          aqui vai o carroussel
-            { startRecipe ? '' : 'Recomendações' }
-          </h1> */}
-          <button data-testid="share-btn">
+          {copied
+            && <p>Link copied!</p>}
+          <button
+            data-testid="share-btn"
+            onClick={ handleShare }
+          >
             Share
           </button>
           <button data-testid="favorite-btn">
