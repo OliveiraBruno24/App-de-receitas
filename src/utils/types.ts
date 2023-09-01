@@ -44,8 +44,10 @@ export type MealsContextTypes = {
 export type DrinksContextTypes = {
   drinks: Drink[];
   setDrinks: React.Dispatch<React.SetStateAction<Drink[]>>
-  recipeContext:Drink | undefined;
-  setRecipeContext:React.Dispatch<React.SetStateAction<Drink | undefined>>
+  recipeContext:Drink[];
+  setRecipeContext:React.Dispatch<React.SetStateAction<Drink[]>>
+  favContext: Drink[];
+  setFavContext:React.Dispatch<React.SetStateAction<Drink[]>>
 };
 
 export type UtilsContextTypes = {

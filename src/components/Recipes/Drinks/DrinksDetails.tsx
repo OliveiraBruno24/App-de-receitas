@@ -5,11 +5,11 @@ import DrinksContext from '../../../context/DrinksContext';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
-  const { setRecipeContext } = useContext(DrinksContext);
+  const { setRecipeContext, recipeContext, setFavContext } = useContext(DrinksContext);
 
   const [recipe, setRecipe] = useState<any | null>(null);
   const [copied, setCopied] = useState(false);
-
+  const [favorite, setFavorite] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function RecipeDetail() {
         );
         const data = await response.json();
         setRecipe(data.drinks?.[0]);
-        setRecipeContext(data.drinks?.[0]);
+        setRecipeContext([data.drinks?.[0]]);
       } catch (error) {
         console.error('deu zebra aqui: ', error);
       }
@@ -29,10 +29,6 @@ function RecipeDetail() {
 
     fetchRecipeDetails();
   }, [recipeId]);
-
-  // const HandleClick = () => {
-  //   setStartRecipe(!startRecipe);
-  // };
 
   const HandleClick = () => {
     navigate(`/drinks/${recipeId}/in-progress`);
@@ -46,6 +42,18 @@ function RecipeDetail() {
     setTimeout(() => {
       setCopied(false);
     }, 1000);
+  };
+
+  useEffect(() => {
+    if (favorite === true) {
+      setFavContext(recipeContext);
+    } else {
+      setFavContext([]);
+    }
+  }, [favorite, recipeContext, setFavContext]);
+
+  const handleFavoritre = () => {
+    setFavorite(!favorite);
   };
 
   return (
@@ -103,8 +111,11 @@ function RecipeDetail() {
           >
             Share
           </button>
-          <button data-testid="favorite-btn">
-            Favorite
+          <button
+            data-testid="favorite-btn"
+            onClick={ handleFavoritre }
+          >
+            {favorite ? 'unfavorite' : 'favorite' }
           </button>
         </div>
       ) : (null) }
