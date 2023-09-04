@@ -5,7 +5,7 @@ import MealsContext from '../../../context/MealsContext';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
-  const { setMealsContext, mealsContext, setFavContext } = useContext(MealsContext);
+  const { setMealsContext, mealsContext, setFavMeals } = useContext(MealsContext);
 
   const [recipe, setRecipe] = useState<any | null>(null);
   const [copied, setCopied] = useState(false);
@@ -49,11 +49,11 @@ function RecipeDetail() {
 
   useEffect(() => {
     if (favorite === true) {
-      setFavContext(mealsContext);
+      setFavMeals(mealsContext);
     } else {
-      setFavContext([]);
+      setFavMeals([]);
     }
-  }, [favorite, mealsContext, setFavContext]);
+  }, [favorite, mealsContext, setFavMeals]);
 
   const handleFavoritre = () => {
     setFavorite(!favorite);
