@@ -5,7 +5,7 @@ import DrinksContext from '../../../context/DrinksContext';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
-  const { setRecipeContext, recipeContext, setFavContext } = useContext(DrinksContext);
+  const { setRecipeContext, recipeContext, setFavDrinks} = useContext(DrinksContext);
 
   const [recipe, setRecipe] = useState<any | null>(null);
   const [copied, setCopied] = useState(false);
@@ -46,11 +46,11 @@ function RecipeDetail() {
 
   useEffect(() => {
     if (favorite === true) {
-      setFavContext(recipeContext);
+      setFavDrinks(recipeContext);
     } else {
-      setFavContext([]);
+      setFavDrinks([]);
     }
-  }, [favorite, recipeContext, setFavContext]);
+  }, [favorite, recipeContext, setFavDrinks]);
 
   const handleFavoritre = () => {
     setFavorite(!favorite);

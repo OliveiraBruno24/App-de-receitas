@@ -9,7 +9,7 @@ type MealsProviderType = {
 function MealsProvider({ children }: MealsProviderType) {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [mealsContext, setMealsContext] = useState<Meal[]>([]);
-  const [favContext, setFavContext] = useState<Meal[]>([]);
+  const [favMeals, setFavMeals] = useState<Meal[]>([]);
   // console.log('fav', favContext);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ function MealsProvider({ children }: MealsProviderType) {
     setMeals,
     mealsContext,
     setMealsContext,
-    favContext,
-    setFavContext };
+    favMeals,
+    setFavMeals };
   return (
     <MealsContext.Provider value={ contextValue }>
       {children}
