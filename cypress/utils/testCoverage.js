@@ -94,3 +94,4 @@ const getCoverage = (id) => id === runnerId ? coverageResult : testCoverage(id);
 module.exports = {
   getCoverage
 }
+

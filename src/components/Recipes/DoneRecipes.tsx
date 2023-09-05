@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FavoriteAndDoneRecipes } from '../../utils/types';
+import { FavoriteAndDoneRecipes } from '../../tests/utils/types';
 import Header from '../Header/Header';
 import shareIcon from '../../images/shareIcon.svg';
 
@@ -8,6 +8,7 @@ function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState<FavoriteAndDoneRecipes[]>([]);
   const [filter, setFilter] = useState<any | null>(null);
   const [copy, setCopy] = useState('');
+  console.log(copy);
 
   useEffect(() => {
     const DoneRecipesLS = localStorage.getItem('doneRecipes');
@@ -97,7 +98,7 @@ function DoneRecipes() {
                   {recipe.doneDate}
                 </p>
 
-                {/* Display tags */}
+                {/* Display tags
                 {recipe.tags && Array.isArray(recipe.tags) && recipe.tags
                   .slice(0, 2).map((tag: any, tagIndex: any) => (
 
@@ -107,7 +108,7 @@ function DoneRecipes() {
                     >
                       {tag}
                     </p>
-                  ))}
+                  ))} */}
 
                 {/* Share button */}
                 <button

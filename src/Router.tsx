@@ -3,8 +3,8 @@ import { Login } from './pages/Login/Login';
 import Profile from './components/Profile';
 import DoneRecipes from './components/Recipes/DoneRecipes';
 import FavoriteRecipes from './components/Recipes/FavoriteRecipes';
-import MealsDetails from './components/Recipes/Meals/MealsDetails';
-import DrinksDetails from './components/Recipes/Drinks/DrinksDetails';
+import MealDetails from './components/Recipes/Meals/MealsDetails';
+import DrinkDetails from './components/Recipes/Drinks/DrinksDetails';
 import MealsCategorys from './components/Recipes/Meals/MealsCategorys';
 import DrinksCategorys from './components/Recipes/Drinks/DrinksCategorys';
 import DrinksInProgress from './components/Recipes/Drinks/DrinksInProgress';
@@ -15,9 +15,9 @@ export default function Router() {
     <Routes>
       <Route path="/" element={ <Login /> } />
 
-      <Route path="/meals/:recipeId" element={ <MealsDetails /> } />
+      <Route path="/meals/:recipeId" element={ <MealDetails /> } />
 
-      <Route path="/drinks/:recipeId" element={ <DrinksDetails /> } />
+      <Route path="/drinks/:recipeId" element={ <DrinkDetails /> } />
 
       <Route path="/meals" element={ <MealsCategorys /> } />
       <Route path="/drinks" element={ <DrinksCategorys /> } />

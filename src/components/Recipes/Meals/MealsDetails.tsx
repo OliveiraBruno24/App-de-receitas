@@ -1,18 +1,22 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
 import MealsContext from '../../../context/MealsContext';
+import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../../images/blackHeartIcon.svg';
+import DrinksContext from '../../../context/DrinksContext';
+import '../Cards.css';
 
-function RecipeDetail() {
+function MealDetails() {
   const { recipeId } = useParams();
   const { setMealsContext,
     mealsContext,
     setFavMeals,
     favMeals } = useContext(MealsContext);
+  const { drinks } = useContext(DrinksContext);
 
-  console.log('favMeals', favMeals);
-
-  const [recipe, setRecipe] = useState<any | null>(null);
+  const [recipe, setRecipe] = useState<any | null>('');
+  console.log('recipe', recipe);
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
@@ -34,13 +38,11 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId]);
+  }, [recipeId, setMealsContext]);
 
   const HandleClick = () => {
     navigate(`/meals/${recipeId}/in-progress`);
   };
-
-  // Implemente a solução de forma que, ao clicar no botão de compartilhar, o link de detalhes da receita seja copiado para o clipboard e uma mensagem avisando que ele foi copiado apareça na tela em uma tag HTML. Não pode ser window.alert.
 
   const handleShare = () => {
     const { location: { pathname } } = window;
@@ -63,7 +65,8 @@ function RecipeDetail() {
   useEffect(() => {
     if (favorite) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(favMeals.map((r) => {
-        return { id: r.idMeal,
+        return {
+          id: r.idMeal,
           type: 'meal',
           nationality: r.strArea,
           category: r.strCategory,
@@ -74,6 +77,15 @@ function RecipeDetail() {
       })));
     }
   }, [favMeals, favorite]);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    setFavMeals(favorites);
+
+    // Verifique se a receita atual está na lista de favoritos
+    const isFavorite = favorites.some((favRecipe:any) => favRecipe.id === recipe.idMeal);
+    setFavorite(isFavorite);
+  }, [recipe, setFavMeals]);
 
   const handleFavoritre = () => {
     setFavorite(!favorite);
@@ -127,11 +139,31 @@ function RecipeDetail() {
             { recipe.strYoutube }
           </div>
 
+          <div className="carousel-container">
+            {drinks.slice(0, 6).map((receita: any, index: any) => (
+              <Link to={ `/drinks/${receita.idDrink}` } key={ receita.idDrink }>
+                <div
+                  className="recommendation-card"
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ receita.idDrink }
+                >
+                  <img src={ receita.strDrinkThumb } alt={ receita.strDrink } />
+                  <p
+                    data-testid={ `${index}-recommendation-title` }
+                  >
+                    {receita.strDrink}
+
+                  </p>
+                </div>
+
+              </Link>
+            ))}
+          </div>
+
           <button
             data-testid="start-recipe-btn"
-            id="recipeButton"
+            className="recipe-button"
             onClick={ HandleClick }
-            className="continueButton"
           >
             Continue Recipe
           </button>
@@ -143,12 +175,25 @@ function RecipeDetail() {
           >
             Share
           </button>
-          <button
-            data-testid="favorite-btn"
-            onClick={ handleFavoritre }
-          >
-            {favorite ? 'unfavorite' : 'favorite' }
-          </button>
+
+          {favorite ? (
+            <button onClick={ handleFavoritre }>
+              <img
+                data-testid="favorite-btn"
+                src={ blackHeartIcon }
+                alt="blackHeartIcon"
+              />
+            </button>
+          ) : (
+            <button onClick={ handleFavoritre }>
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="whiteHeartIcon"
+              />
+            </button>
+          )}
+
         </div>
       ) : (null) }
 
@@ -156,4 +201,4 @@ function RecipeDetail() {
   );
 }
 
-export default RecipeDetail;
+export default MealDetails;

@@ -1,14 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
 import DrinksContext from '../../../context/DrinksContext';
+import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../../images/blackHeartIcon.svg';
+import MealsContext from '../../../context/MealsContext';
+import '../Cards.css';
 
-function RecipeDetail() {
+function DrinkDetails() {
   const { recipeId } = useParams();
   const { setRecipeContext, recipeContext, setFavDrinks,
     favDrinks } = useContext(DrinksContext);
+  const { meals } = useContext(MealsContext);
 
-  const [recipe, setRecipe] = useState<any | null>(null);
+  const [recipe, setRecipe] = useState<any | null>('');
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
@@ -29,7 +34,7 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId]);
+  }, [recipeId, setRecipeContext]);
 
   const HandleClick = () => {
     navigate(`/drinks/${recipeId}/in-progress`);
@@ -73,6 +78,15 @@ function RecipeDetail() {
     }
   }, [favDrinks, favorite]);
 
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    setFavDrinks(favorites);
+
+    // Verifique se a receita atual está na lista de favoritos
+    const isFavorite = favorites.some((favRecipe:any) => favRecipe.id === recipe.idDrink);
+    setFavorite(isFavorite);
+  }, [recipe, setFavDrinks]);
+
   return (
     <div>
       {recipe ? ( // if
@@ -113,9 +127,25 @@ function RecipeDetail() {
           <h3>Instructions:</h3>
           <p data-testid="instructions">{recipe.strInstructions}</p>
 
+          <div className="carousel-container">
+            {meals.slice(0, 6).map((receita: any, index: any) => (
+              <Link to={ `/meals/${receita.idMeal}` } key={ receita.idMeal }>
+                <div
+                  className="recommendation-card"
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ receita.idMeal }
+                >
+                  <img src={ receita.strMealThumb } alt={ receita.strMeal } />
+                  <p data-testid={ `${index}-recommendation-title` }>{receita.strMeal}</p>
+                </div>
+
+              </Link>
+            ))}
+          </div>
+
           <button
             data-testid="start-recipe-btn"
-            id="recipeButton"
+            className="recipe-button"
             onClick={ HandleClick }
           >
             Continue Recipe
@@ -128,12 +158,25 @@ function RecipeDetail() {
           >
             Share
           </button>
-          <button
-            data-testid="favorite-btn"
-            onClick={ handleFavoritre }
-          >
-            {favorite ? 'unfavorite' : 'favorite' }
-          </button>
+          {favorite ? (
+
+            <button onClick={ handleFavoritre }>
+              <img
+                data-testid="favorite-btn"
+                src={ blackHeartIcon }
+                alt="blackHeartIcon"
+              />
+
+            </button>
+          ) : (
+            <button onClick={ handleFavoritre }>
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="whiteHeartIcon"
+              />
+            </button>
+          )}
         </div>
       ) : (null) }
       ;
@@ -141,4 +184,4 @@ function RecipeDetail() {
   );
 }
 
-export default RecipeDetail;
+export default DrinkDetails;

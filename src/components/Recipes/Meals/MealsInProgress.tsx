@@ -1,76 +1,54 @@
 import { useContext } from 'react';
-import '../RecipeDetails.css';
 import MealsContext from '../../../context/MealsContext';
 
-function RecipeDetail() {
+function MealsInProgress() {
   const { mealsContext } = useContext(MealsContext);
+  console.log('tremBao: ', mealsContext);
+
+  const getIngredients = (meal: any) => {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = meal && meal[`strIngredient${i}`];
+      if (ingredient) {
+        ingredients.push(ingredient);
+      }
+    }
+    return ingredients;
+  };
+
+  const handleCheckboxChange = (e: any) => {
+    const isChecked = e.target.checked;
+    if (isChecked === true) {
+
+    }
+  };
 
   return (
     <div>
-      {mealsContext ? ( // if
-        <div>
+      <img data-testid="recipe-photo" alt="foto" />
+      <h1 data-testid="recipe-title">{}</h1>
 
-          <img
-            src={ mealsContext.strMealThumb }
-            alt={ mealsContext.strMeal }
-            data-testid="recipe-photo"
-          />
-
-          {/* passar o title para o meio da imagem dps no css, de acordo c figma */}
-          <h2 data-testid="recipe-title">
-            { mealsContext.strMeal}
-          </h2>
-
-          <p data-testid="recipe-category">
-            { mealsContext.strCategory }
-          </p>
-
-          <h3>Ingredientes:</h3>
-
-          <div>
-            {Object.keys(mealsContext).map((key, index) => {
-              if (key.includes('Ingredient') && mealsContext[key]) {
-                const measureKey = `strMeasure${key.slice(12)}`;
-
-                return (
-                  <div
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    <input
-                      type="checkbox"
-                    />
-                    {mealsContext[key]}
-                    {' '}
-                    -
-                    {' '}
-                    {mealsContext[measureKey]}
-                  </div>
-                );
-              }
-
-              return null;
-            })}
+      <div className="label-checkbox">
+        {getIngredients(mealsContext[0]).map((ingredient, index) => (
+          <div key={ index }>
+            <label key={ index } data-testid={ `${index}-ingredient-step` }>
+              <input
+                type="checkbox"
+                value={ ingredient }
+              />
+              {ingredient}
+            </label>
           </div>
+        ))}
+      </div>
 
-          <h3>Instructions:</h3>
-          <p data-testid="instructions">{mealsContext.strInstructions}</p>
-
-          <div data-testid="video">
-            { mealsContext.strYoutube }
-          </div>
-
-          <button
-            data-testid="start-recipe-btn"
-            id="recipeButton"
-          >
-            Continue Recipe
-          </button>
-
-        </div>
-      ) : (null) }
+      <p data-testid="instructions">{}</p>
+      <button data-testid="share-btn">Compartilhar</button>
+      <button data-testid="favorite-btn">Favoritar</button>
+      <p data-testid="recipe-category">{}</p>
+      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
     </div>
   );
 }
 
-export default RecipeDetail;
+export default MealsInProgress;

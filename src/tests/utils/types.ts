@@ -20,7 +20,6 @@ export interface Meal {
   strMealThumb: string;
   strTags: string;
   strYoutube: string;
-  // isId: number;
 }
 
 export interface Drink {
@@ -69,20 +68,22 @@ export type FavoriteAndDoneRecipes = {
   alcoholicOrNot: string,
   name: string,
   image:string,
+  doneDate: string,
+  tags: string,
 };
 
-const [localFavorite, setLocalFavorite] = useState<FavoriteAndDoneRecipes[]>([]);
+export interface CardProps {
+  id: string,
+  name: string,
+  image: string;
+  index: number;
+  // recommendation: Drink;
+}
 
-  useEffect(() => {
-    if (favorite) {
-      favDrinks.map((drink) => {
-        id: drink.idDrink,
-        type: 'meal',
-        area: drink.strArea,
-        category: drink.strCategory,
-        alcoholicOrNot: drink.strAlcoholic,
-        name: drink.strMeal,
-        image: drink.strMealThumb,
-      });
-    }
-  }, [favDrinks]);
+export interface ListaMeals {
+  receitinhas: Array<{
+    idMeal: string;
+    strMeal: string;
+    strMealThumb: string;
+  }>;
+}

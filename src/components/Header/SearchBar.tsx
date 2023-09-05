@@ -9,10 +9,10 @@ import {
   searchDrinksByName,
   searchDrinksByFirstLetter,
   searchDrinksByIngredient,
-} from '../../utils/Api';
+} from '../../tests/utils/Api';
 
 // tipagem
-import { Drink, Meal } from '../../utils/types';
+import { Drink, Meal } from '../../tests/utils/types';
 import Footer from '../Footer/Footer';
 import DrinksContext from '../../context/DrinksContext';
 import MealsContext from '../../context/MealsContext';
