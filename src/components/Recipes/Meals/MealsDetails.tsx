@@ -5,7 +5,12 @@ import MealsContext from '../../../context/MealsContext';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
-  const { setMealsContext, mealsContext, setFavMeals } = useContext(MealsContext);
+  const { setMealsContext,
+    mealsContext,
+    setFavMeals,
+    favMeals } = useContext(MealsContext);
+
+  console.log('favMeals', favMeals);
 
   const [recipe, setRecipe] = useState<any | null>(null);
   const [copied, setCopied] = useState(false);
@@ -54,6 +59,21 @@ function RecipeDetail() {
       setFavMeals([]);
     }
   }, [favorite, mealsContext, setFavMeals]);
+
+  useEffect(() => {
+    if (favorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favMeals.map((r) => {
+        return { id: r.idMeal,
+          type: 'meal',
+          nationality: r.strArea,
+          category: r.strCategory,
+          alcoholicOrNot: '',
+          name: r.strMeal,
+          image: r.strMealThumb,
+        };
+      })));
+    }
+  }, [favMeals, favorite]);
 
   const handleFavoritre = () => {
     setFavorite(!favorite);

@@ -5,7 +5,8 @@ import DrinksContext from '../../../context/DrinksContext';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
-  const { setRecipeContext, recipeContext, setFavDrinks} = useContext(DrinksContext);
+  const { setRecipeContext, recipeContext, setFavDrinks,
+    favDrinks } = useContext(DrinksContext);
 
   const [recipe, setRecipe] = useState<any | null>(null);
   const [copied, setCopied] = useState(false);
@@ -55,6 +56,22 @@ function RecipeDetail() {
   const handleFavoritre = () => {
     setFavorite(!favorite);
   };
+
+  useEffect(() => {
+    if (favorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favDrinks.map((r) => {
+        return {
+          id: r.idDrink,
+          type: 'drink',
+          nationality: '',
+          category: r.strCategory,
+          alcoholicOrNot: r.strAlcoholic,
+          name: r.strDrink,
+          image: r.strDrinkThumb,
+        };
+      })));
+    }
+  }, [favDrinks, favorite]);
 
   return (
     <div>
