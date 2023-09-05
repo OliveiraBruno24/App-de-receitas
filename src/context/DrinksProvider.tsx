@@ -29,7 +29,7 @@ function DrinksProvider({ children }: DrinksProviderType) {
     setRecipeContext,
     favDrinks,
     setFavDrinks };
-  // como resolver o erro do value?
+
   return (
     <DrinksContext.Provider value={ contextValue }>
       { children }

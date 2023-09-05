@@ -46,34 +46,25 @@ function DoneRecipes() {
         >
           Drinks
         </button>
-
       </div>
 
       {doneRecipes.map((recipe, index) => {
         const handleShareClick = () => {
-          // type e id são string da props (FavoriteAndDoneRecipes) q esta em doneRecipe
           const recipeURL = `http://localhost:3000/${recipe.type}s/${recipe.id}`;
-          // clipboard é a area de transferência
           navigator.clipboard.writeText(recipeURL);
           setTimeout(() => {
             setCopy('Link copied!');
-          }, 3000); // limpa a mensagem dps de 3s.
+          }, 3000);
         };
 
         return (
           <div key={ index }>
-            {/* quando filtro é vazio ou algum tipo (drinks/meals) */}
             {filter === null || filter === recipe.type ? (
               <div>
-
-                {/* Display name */}
                 <Link to={ `/${recipe.type}s/${recipe.id}` }>
-                  <p data-testid={ `${index}-horizontal-name` }>
-                    {recipe.name}
-                  </p>
+                  <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
                 </Link>
 
-                {/* Display image */}
                 <Link to={ `/${recipe.type}s/${recipe.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
@@ -82,45 +73,37 @@ function DoneRecipes() {
                   />
                 </Link>
 
-                {/* Display category and nationality */}
                 <p data-testid={ `${index}-horizontal-top-text` }>
                   {recipe.nationality}
-                  {' '}
                   -
-                  {' '}
                   {recipe.category}
                 </p>
 
-                {/* Display done date */}
                 <p data-testid={ `${index}-horizontal-done-date` }>
                   Done on:
                   {' '}
-                  {recipe.doneDate}
+                  { recipe.doneDate }
                 </p>
 
-                {/* Display tags
+                {/* Renderizar as tags com data-testid */}
                 {recipe.tags && Array.isArray(recipe.tags) && recipe.tags
                   .slice(0, 2).map((tag: any, tagIndex: any) => (
-
                     <p
                       key={ `${index}-${tagIndex}` }
                       data-testid={ `${index}-${tag}-horizontal-tag` }
                     >
                       {tag}
                     </p>
-                  ))} */}
+                  ))}
 
-                {/* Share button */}
                 <button
                   data-testid={ `${index}-horizontal-share-btn` }
                   onClick={ () => { handleShareClick(); } }
                 >
                   <img src={ shareIcon } alt="Share" />
                 </button>
-
               </div>
-            ) : null }
-            {/* traga os displays ou nada */}
+            ) : null}
           </div>
         );
       })}

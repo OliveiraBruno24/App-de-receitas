@@ -9,7 +9,6 @@ type MealsProviderType = {
 function MealsProvider({ children }: MealsProviderType) {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [mealsContext, setMealsContext] = useState<Meal[]>([]);
-  console.log('mealsContext', mealsContext);
 
   const [favMeals, setFavMeals] = useState<Meal[]>([]);
   // console.log('fav', favContext);
