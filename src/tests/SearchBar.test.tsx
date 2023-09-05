@@ -3,7 +3,7 @@
 // import SearchBar from './Header/SearchBar';
 
 describe('Componente Searchbar', () => {
-  it('teste o Searchbar', () => {
+  it('testando o Searchbar', () => {
     expect(true).toBe(true);
   });
 });
