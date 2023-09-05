@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FavoriteAndDoneRecipes } from '../../utils/types';
-import Header from '../Header/Header';
+import Header from '../../tests/Header/Header';
 import shareIcon from '../../images/shareIcon.svg';
 
 function DoneRecipes() {
@@ -98,7 +98,7 @@ function DoneRecipes() {
                   {recipe.doneDate}
                 </p>
 
-                {/* Display tags */}
+                {/* Display tags
                 {recipe.tags && Array.isArray(recipe.tags) && recipe.tags
                   .slice(0, 2).map((tag: any, tagIndex: any) => (
 
@@ -108,7 +108,7 @@ function DoneRecipes() {
                     >
                       {tag}
                     </p>
-                  ))}
+                  ))} */}
 
                 {/* Share button */}
                 <button

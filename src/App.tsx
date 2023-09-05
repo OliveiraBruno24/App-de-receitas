@@ -2,7 +2,7 @@ import './App.css';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import Header from './components/Header/Header';
+import Header from './tests/Header/Header';
 import Footer from './components/Footer/Footer';
 import MealsProvider from './context/MealsProvider';
 import DrinksProvider from './context/DrinksProvider';

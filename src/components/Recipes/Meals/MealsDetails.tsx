@@ -7,7 +7,7 @@ import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 import DrinksContext from '../../../context/DrinksContext';
 import '../Cards.css';
 
-function RecipeDetail() {
+function MealDetails() {
   const { recipeId } = useParams();
   const { setMealsContext,
     mealsContext,
@@ -16,6 +16,7 @@ function RecipeDetail() {
   const { drinks } = useContext(DrinksContext);
 
   const [recipe, setRecipe] = useState<any | null>('');
+  console.log('recipe', recipe);
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
@@ -37,7 +38,7 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId]);
+  }, [recipeId, setMealsContext]);
 
   const HandleClick = () => {
     navigate(`/meals/${recipeId}/in-progress`);
@@ -177,21 +178,21 @@ function RecipeDetail() {
           </button>
 
           {favorite ? (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-            <img
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-              alt="blackHeartIcon"
-              onClick={ handleFavoritre }
-            />
+            <button onClick={ handleFavoritre }>
+              <img
+                data-testid="favorite-btn"
+                src={ blackHeartIcon }
+                alt="blackHeartIcon"
+              />
+            </button>
           ) : (
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
-            <img
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              alt="whiteHeartIcon"
-              onClick={ handleFavoritre }
-            />
+            <button onClick={ handleFavoritre }>
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="whiteHeartIcon"
+              />
+            </button>
           )}
 
         </div>
@@ -201,4 +202,4 @@ function RecipeDetail() {
   );
 }
 
-export default RecipeDetail;
+export default MealDetails;

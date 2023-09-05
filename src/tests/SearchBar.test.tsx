@@ -1,0 +1,9 @@
+// import { screen, fireEvent, render, waitFor } from '@testing-library/react';
+// import { MemoryRouter } from 'react-router-dom';
+// import SearchBar from './Header/SearchBar';
+
+describe('Componente SearchBar', () => {
+  test('', () => {
+
+  });
+});

@@ -7,6 +7,10 @@ import {
   searchDrinksByIngredient,
   searchDrinksByName,
   searchDrinksByFirstLetter,
+  getDrinkById,
+  getDrinks,
+  getMealById,
+  getMeals,
 } from '../utils/Api';
 
 // Mock da função alert para capturar mensagens de erro
@@ -44,12 +48,8 @@ describe('Testa a API', () => {
   });
   it('deve retornar uma lista de drinks ao pesquisar por nome', async () => {
     const result = await searchDrinksByName('Aquamarine');
-    assert.isAbove(result.length, 0, 'A pesquisa por nome deve retornar pelo menos um drink');
+    assert.isAbove(result.length, 0, 'A pesquisa por nome deve retornar ao menos um drink');
   });
-  // it('deve exibir um alerta de erro quando a pesquisa por ingrediente não retorna resultados', async () => {
-  //   await searchRecipesByIngredient('ingrediente_inexistente');
-  //   assert.isTrue(mockAlert.messages.includes(errorReq), 'Deve exibir um alerta de erro com a mensagem certeirissima');
-  // });
   it('deve exibir um alerta de erro quando a pesquisa por nome não retorna resultados', async () => {
     await searchRecipesByName('xablau');
     assert.isTrue(mockAlert.messages.includes(errorReq), 'Deve exibir um alerta de erro com a mensagem certeira');
@@ -61,5 +61,16 @@ describe('Testa a API', () => {
   it('deve exibir um alerta de erro quando a pesquisa por primeira letra não retorna resultados', async () => {
     await searchDrinksByFirstLetter('X');
     assert.isTrue(mockAlert.messages.includes(errorReq), 'Deve exibir um alerta de erro com a mensagem correta');
+  });
+  it('funções genericas', async () => {
+    const result = await getDrinks();
+    const resultById = await getDrinkById('15997');
+    const resultMeal = await getMeals();
+    const resultMealById = await getMealById('52977');
+
+    assert.isAbove(result.length, 0, 'A pesquisa por nome deve retornar pelo menos um drink');
+    assert.isAbove(resultById.length, 0, 'A pesquisa por nome deve retornar pelo menos um drink');
+    assert.isAbove(resultMeal.length, 0, 'A pesquisa por nome deve retornar pelo menos um meal');
+    assert.isAbove(resultMealById.length, 0, 'A pesquisa por nome deve retornar pelo menos um meal');
   });
 });

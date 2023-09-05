@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Header from '../Header/Header';
+import Header from '../../tests/Header/Header';
 import { FavoriteAndDoneRecipes } from '../../utils/types';
 
 import shareIcon from '../../images/shareIcon.svg';
