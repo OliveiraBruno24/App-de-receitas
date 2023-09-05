@@ -1,11 +1,10 @@
-
 .carousel-container {
+  display: flex;
   overflow-x: scroll;
   white-space: nowrap;
-  display: flex;
 }
 
 .recommendation-card {
-  width: 200px; /* Largura de cada card */
   margin-right: 10px; /* Espaçamento entre os cards */
+  width: 200px; /* Largura de cada card */
 }

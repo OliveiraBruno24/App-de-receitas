@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FavoriteAndDoneRecipes } from '../../utils/types';
-import Header from '../../tests/Header/Header';
+import Header from '../Header';
 import shareIcon from '../../images/shareIcon.svg';
 
 function DoneRecipes() {

@@ -145,7 +145,7 @@ function DrinkDetails() {
 
           <button
             data-testid="start-recipe-btn"
-            id="recipeButton"
+            className="recipe-button"
             onClick={ HandleClick }
           >
             Continue Recipe
