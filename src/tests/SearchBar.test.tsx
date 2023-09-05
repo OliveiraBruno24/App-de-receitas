@@ -2,8 +2,8 @@
 // import { MemoryRouter } from 'react-router-dom';
 // import SearchBar from './Header/SearchBar';
 
-describe('Componente searchbar', () => {
-  it('teste o searchbar', () => {
+describe('Componente Searchbar', () => {
+  it('teste o Searchbar', () => {
     expect(true).toBe(true);
   });
 });
