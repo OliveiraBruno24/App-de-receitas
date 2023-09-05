@@ -16,9 +16,12 @@ function MealsInProgress() {
     return ingredients;
   };
 
-  // const handleCheckboxChange = (e: any) => {
-  //   const isChecked = e.target.checked;
-  // };
+  const handleCheckboxChange = (e: any) => {
+    const isChecked = e.target.checked;
+    if (isChecked === true) {
+
+    }
+  };
 
   return (
     <div>
@@ -27,14 +30,15 @@ function MealsInProgress() {
 
       <div className="label-checkbox">
         {getIngredients(mealsContext[0]).map((ingredient, index) => (
-          <label key={ index } data-testid={ `${index}-ingredient-step` }>
-            <input
-              type="checkbox"
-              value={ ingredient }
-              // onChange={ (e) => handleCheckboxChange(e) }
-            />
-            {ingredient}
-          </label>
+          <div key={ index }>
+            <label key={ index } data-testid={ `${index}-ingredient-step` }>
+              <input
+                type="checkbox"
+                value={ ingredient }
+              />
+              {ingredient}
+            </label>
+          </div>
         ))}
       </div>
 
