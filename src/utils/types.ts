@@ -29,6 +29,8 @@ export interface Drink {
   strCategory: string;
   strInstructions: string;
   strDrinkThumb: string;
+  strArea: string,
+  strAlcoholic: string
 
 }
 
@@ -67,6 +69,20 @@ export type FavoriteAndDoneRecipes = {
   alcoholicOrNot: string,
   name: string,
   image:string,
-  doneDate: string,
-  tags: string[],
 };
+
+const [localFavorite, setLocalFavorite] = useState<FavoriteAndDoneRecipes[]>([]);
+
+  useEffect(() => {
+    if (favorite) {
+      favDrinks.map((drink) => {
+        id: drink.idDrink,
+        type: 'meal',
+        area: drink.strArea,
+        category: drink.strCategory,
+        alcoholicOrNot: drink.strAlcoholic,
+        name: drink.strMeal,
+        image: drink.strMealThumb,
+      });
+    }
+  }, [favDrinks]);

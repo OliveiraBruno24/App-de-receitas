@@ -10,8 +10,8 @@ function DrinksProvider({ children }: DrinksProviderType) {
   const [drinks, setDrinks] = useState<Drink[]>([]);
   const [recipeContext, setRecipeContext] = useState<Drink[]>([]);
   const [favDrinks, setFavDrinks] = useState<Drink[]>([]);
-
   // console.log('drinks', drinks);
+  console.log('favDrinks', favDrinks);
 
   useEffect(() => {
     const getDrinksInfo = async () => {
