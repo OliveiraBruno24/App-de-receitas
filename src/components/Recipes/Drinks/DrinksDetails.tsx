@@ -2,13 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
 import DrinksContext from '../../../context/DrinksContext';
+import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
   const { setRecipeContext, recipeContext, setFavDrinks,
     favDrinks } = useContext(DrinksContext);
 
-  const [recipe, setRecipe] = useState<any | null>(null);
+  const [recipe, setRecipe] = useState<any | null>('');
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
@@ -73,6 +75,15 @@ function RecipeDetail() {
     }
   }, [favDrinks, favorite]);
 
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    setFavDrinks(favorites);
+
+    // Verifique se a receita atual está na lista de favoritos
+    const isFavorite = favorites.some((favRecipe:any) => favRecipe.id === recipe.idDrink);
+    setFavorite(isFavorite);
+  }, [recipe]);
+
   return (
     <div>
       {recipe ? ( // if
@@ -128,12 +139,23 @@ function RecipeDetail() {
           >
             Share
           </button>
-          <button
-            data-testid="favorite-btn"
-            onClick={ handleFavoritre }
-          >
-            {favorite ? 'unfavorite' : 'favorite' }
-          </button>
+          {favorite ? (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              alt="blackHeartIcon"
+              onClick={ handleFavoritre }
+            />
+          ) : (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+              alt="whiteHeartIcon"
+              onClick={ handleFavoritre }
+            />
+          )}
         </div>
       ) : (null) }
       ;

@@ -8,7 +8,7 @@ import DrinksDetails from './components/Recipes/Drinks/DrinksDetails';
 import MealsCategorys from './components/Recipes/Meals/MealsCategorys';
 import DrinksCategorys from './components/Recipes/Drinks/DrinksCategorys';
 import DrinksInProgress from './components/Recipes/Drinks/DrinksInProgress';
-import MealsInProgress from './components/Recipes/Meals/MealsInProgress';
+// import MealsInProgress from './components/Recipes/Meals/MealsInProgress';
 
 export default function Router() {
   return (
@@ -28,10 +28,10 @@ export default function Router() {
         path="/drinks/:recipeId/in-progress"
         element={ <DrinksInProgress /> }
       />
-      <Route
+      {/* <Route
         path="/meals/:recipeId/in-progress"
         element={ <MealsInProgress /> }
-      />
+      /> */}
 
     </Routes>
   );

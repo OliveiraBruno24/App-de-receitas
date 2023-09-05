@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
 import MealsContext from '../../../context/MealsContext';
+import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
@@ -10,9 +12,7 @@ function RecipeDetail() {
     setFavMeals,
     favMeals } = useContext(MealsContext);
 
-  console.log('favMeals', favMeals);
-
-  const [recipe, setRecipe] = useState<any | null>(null);
+  const [recipe, setRecipe] = useState<any | null>('');
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
@@ -34,13 +34,11 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId, setMealsContext]);
+  }, [recipeId]);
 
   const HandleClick = () => {
     navigate(`/meals/${recipeId}/in-progress`);
   };
-
-  // Implemente a solução de forma que, ao clicar no botão de compartilhar, o link de detalhes da receita seja copiado para o clipboard e uma mensagem avisando que ele foi copiado apareça na tela em uma tag HTML. Não pode ser window.alert.
 
   const handleShare = () => {
     const { location: { pathname } } = window;
@@ -63,7 +61,8 @@ function RecipeDetail() {
   useEffect(() => {
     if (favorite) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(favMeals.map((r) => {
-        return { id: r.idMeal,
+        return {
+          id: r.idMeal,
           type: 'meal',
           nationality: r.strArea,
           category: r.strCategory,
@@ -74,6 +73,15 @@ function RecipeDetail() {
       })));
     }
   }, [favMeals, favorite]);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+    setFavMeals(favorites);
+
+    // Verifique se a receita atual está na lista de favoritos
+    const isFavorite = favorites.some((favRecipe:any) => favRecipe.id === recipe.idMeal);
+    setFavorite(isFavorite);
+  }, [recipe]);
 
   const handleFavoritre = () => {
     setFavorite(!favorite);
@@ -143,12 +151,25 @@ function RecipeDetail() {
           >
             Share
           </button>
-          <button
-            data-testid="favorite-btn"
-            onClick={ handleFavoritre }
-          >
-            {favorite ? 'unfavorite' : 'favorite' }
-          </button>
+
+          {favorite ? (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              alt="blackHeartIcon"
+              onClick={ handleFavoritre }
+            />
+          ) : (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+              alt="whiteHeartIcon"
+              onClick={ handleFavoritre }
+            />
+          )}
+
         </div>
       ) : (null) }
 
