@@ -27,11 +27,15 @@ describe('Testa a API', () => {
   it('retorna receitas quando pesquisadas por nome', async () => {
     const result = await searchRecipesByName('Pancakes');
     const hasPancakesRecipe = result.some((recipe) => recipe.strMeal === 'Pancakes');
-    assert.isTrue(hasPancakesRecipe, 'A pesquisa por "Pancakes" deve retornar pelo menos uma receita de "Pancakes".');
+    assert.isTrue(
+      hasPancakesRecipe,
+      'A pesquisa por "Pancakes" deve retornar pelo menos uma receita de "Pancakes".',
+    );
   });
   it('deve retornar uma lista de receitas ao pesquisar por ingrediente', async () => {
     const result = await searchRecipesByIngredient('chicken');
-    assert.isAbove(result.length, 0, 'A pesquisa por ingrediente deve retornar pelo menos uma receita');
+    assert.isAbove(result.length, 0,
+      'A pesquisa por ingrediente deve retornar pelo menos uma receita');
   });
   it('deve retornar uma lista de receitas ao pesquisar por nome', async () => {
     const result = await searchRecipesByName('Chicken Alfredo');
