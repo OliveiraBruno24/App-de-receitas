@@ -20,10 +20,6 @@ function DrinkInProgress() {
             { recipeContext.strDrink}
           </h2>
 
-          {/* <p data-testid="recipe-category">
-            {recipeContext.strAlcoholic}
-          </p> */}
-
           <h3>Ingredients:</h3>
 
           <div>

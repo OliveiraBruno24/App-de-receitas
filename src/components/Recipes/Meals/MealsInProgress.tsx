@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import '../RecipeDetails.css';
 import MealsContext from '../../../context/MealsContext';
 
 function RecipeDetail() {

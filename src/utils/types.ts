@@ -20,7 +20,6 @@ export interface Meal {
   strMealThumb: string;
   strTags: string;
   strYoutube: string;
-  // isId: number;
 }
 
 export interface Drink {
@@ -69,4 +68,6 @@ export type FavoriteAndDoneRecipes = {
   alcoholicOrNot: string,
   name: string,
   image:string,
+  doneDate: string,
+  tags: string,
 };
