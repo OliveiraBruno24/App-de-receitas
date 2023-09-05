@@ -8,6 +8,7 @@ function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState<FavoriteAndDoneRecipes[]>([]);
   const [filter, setFilter] = useState<any | null>(null);
   const [copy, setCopy] = useState('');
+  console.log(copy);
 
   useEffect(() => {
     const DoneRecipesLS = localStorage.getItem('doneRecipes');

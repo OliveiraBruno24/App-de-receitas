@@ -70,19 +70,3 @@ export type FavoriteAndDoneRecipes = {
   name: string,
   image:string,
 };
-
-const [localFavorite, setLocalFavorite] = useState<FavoriteAndDoneRecipes[]>([]);
-
-  useEffect(() => {
-    if (favorite) {
-      favDrinks.map((drink) => {
-        id: drink.idDrink,
-        type: 'meal',
-        area: drink.strArea,
-        category: drink.strCategory,
-        alcoholicOrNot: drink.strAlcoholic,
-        name: drink.strMeal,
-        image: drink.strMealThumb,
-      });
-    }
-  }, [favDrinks]);

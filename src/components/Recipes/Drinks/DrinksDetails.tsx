@@ -29,7 +29,7 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId]);
+  }, [recipeId, setRecipeContext]);
 
   const HandleClick = () => {
     navigate(`/drinks/${recipeId}/in-progress`);

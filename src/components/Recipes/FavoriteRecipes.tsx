@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../Header/Header';
@@ -6,8 +6,8 @@ import { FavoriteAndDoneRecipes } from '../../utils/types';
 
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
-import DrinksContext from '../../context/DrinksContext';
-import MealsContext from '../../context/MealsContext';
+// import DrinksContext from '../../context/DrinksContext';
+// import MealsContext from '../../context/MealsContext';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState<FavoriteAndDoneRecipes[]>([]);
@@ -15,9 +15,8 @@ function FavoriteRecipes() {
   const [copy, setCopy] = useState('');
 
   // AQUI TEM OS DRINKS E OS MEALS Q ESTÃO FAVORITADOS.
-  const { favDrinks } = useContext(DrinksContext);
-
-  const { favMeals } = useContext(MealsContext);
+  // const { favDrinks } = useContext(DrinksContext);
+  // const { favMeals } = useContext(MealsContext);
 
   const handleFavorite = (recipe: FavoriteAndDoneRecipes) => {
     if (localStorage.getItem('favoriteRecipes')) {

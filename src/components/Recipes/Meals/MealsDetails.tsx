@@ -34,7 +34,7 @@ function RecipeDetail() {
     };
 
     fetchRecipeDetails();
-  }, [recipeId]);
+  }, [recipeId, setMealsContext]);
 
   const HandleClick = () => {
     navigate(`/meals/${recipeId}/in-progress`);
