@@ -13,7 +13,7 @@ import {
 
 // tipagem
 import { Drink, Meal } from '../../utils/types';
-import Footer from '../../components/Footer/Footer';
+import Footer from '../Footer/Footer';
 import DrinksContext from '../../context/DrinksContext';
 import MealsContext from '../../context/MealsContext';
 
