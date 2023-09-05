@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
 import MealsContext from '../../../context/MealsContext';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
+import DrinksContext from '../../../context/DrinksContext';
+import '../Cards.css';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
@@ -11,6 +13,7 @@ function RecipeDetail() {
     mealsContext,
     setFavMeals,
     favMeals } = useContext(MealsContext);
+  const { drinks } = useContext(DrinksContext);
 
   const [recipe, setRecipe] = useState<any | null>('');
   const [copied, setCopied] = useState(false);
@@ -81,7 +84,7 @@ function RecipeDetail() {
     // Verifique se a receita atual está na lista de favoritos
     const isFavorite = favorites.some((favRecipe:any) => favRecipe.id === recipe.idMeal);
     setFavorite(isFavorite);
-  }, [recipe]);
+  }, [recipe, setFavMeals]);
 
   const handleFavoritre = () => {
     setFavorite(!favorite);
@@ -133,6 +136,27 @@ function RecipeDetail() {
 
           <div data-testid="video">
             { recipe.strYoutube }
+          </div>
+
+          <div className="carousel-container">
+            {drinks.slice(0, 6).map((receita: any, index: any) => (
+              <Link to={ `/drinks/${receita.idDrink}` } key={ receita.idDrink }>
+                <div
+                  className="recommendation-card"
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ receita.idDrink }
+                >
+                  <img src={ receita.strDrinkThumb } alt={ receita.strDrink } />
+                  <p
+                    data-testid={ `${index}-recommendation-title` }
+                  >
+                    {receita.strDrink}
+
+                  </p>
+                </div>
+
+              </Link>
+            ))}
           </div>
 
           <button

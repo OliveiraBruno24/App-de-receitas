@@ -1,14 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../RecipeDetails.css';
 import DrinksContext from '../../../context/DrinksContext';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
+import Card from '../Card';
+import MealsContext from '../../../context/MealsContext';
+import '../Cards.css';
 
 function RecipeDetail() {
   const { recipeId } = useParams();
   const { setRecipeContext, recipeContext, setFavDrinks,
     favDrinks } = useContext(DrinksContext);
+  const { meals } = useContext(MealsContext);
 
   const [recipe, setRecipe] = useState<any | null>('');
   const [copied, setCopied] = useState(false);
@@ -82,7 +86,7 @@ function RecipeDetail() {
     // Verifique se a receita atual está na lista de favoritos
     const isFavorite = favorites.some((favRecipe:any) => favRecipe.id === recipe.idDrink);
     setFavorite(isFavorite);
-  }, [recipe]);
+  }, [recipe, setFavDrinks]);
 
   return (
     <div>
@@ -124,6 +128,22 @@ function RecipeDetail() {
           <h3>Instructions:</h3>
           <p data-testid="instructions">{recipe.strInstructions}</p>
 
+          <div className="carousel-container">
+            {meals.slice(0, 6).map((receita: any, index: any) => (
+              <Link to={ `/meals/${receita.idMeal}` } key={ receita.idMeal }>
+                <div
+                  className="recommendation-card"
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ receita.idMeal }
+                >
+                  <img src={ receita.strMealThumb } alt={ receita.strMeal } />
+                  <p data-testid={ `${index}-recommendation-title` }>{receita.strMeal}</p>
+                </div>
+
+              </Link>
+            ))}
+          </div>
+
           <button
             data-testid="start-recipe-btn"
             id="recipeButton"
@@ -140,7 +160,7 @@ function RecipeDetail() {
             Share
           </button>
           {favorite ? (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
             <img
               data-testid="favorite-btn"
               src={ blackHeartIcon }
@@ -148,7 +168,7 @@ function RecipeDetail() {
               onClick={ handleFavoritre }
             />
           ) : (
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
             <img
               data-testid="favorite-btn"
               src={ whiteHeartIcon }
