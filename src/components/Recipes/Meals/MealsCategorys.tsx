@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MealsContext from '../../../context/MealsContext';
-import { Meal } from '../../../utils/types';
+import { Meal } from '../../../tests/utils/types';
 
 function MealsCategorys() {
   const { meals } = useContext(MealsContext);

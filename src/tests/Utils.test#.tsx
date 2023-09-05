@@ -11,7 +11,7 @@ import {
   getDrinks,
   getMealById,
   getMeals,
-} from '../utils/Api';
+} from './utils/Api';
 
 // Mock da função alert para capturar mensagens de erro
 const mockAlert = (message: string) => {

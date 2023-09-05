@@ -1,4 +1,4 @@
-import { CardProps } from '../../utils/types';
+import { CardProps } from '../../tests/utils/types';
 import './Cards.css';
 
 function Card({ image, index, id, name }: CardProps) {

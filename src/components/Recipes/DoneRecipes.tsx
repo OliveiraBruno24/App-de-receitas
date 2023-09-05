@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FavoriteAndDoneRecipes } from '../../utils/types';
+import { FavoriteAndDoneRecipes } from '../../tests/utils/types';
 import Header from '../Header/Header';
 import shareIcon from '../../images/shareIcon.svg';
 
