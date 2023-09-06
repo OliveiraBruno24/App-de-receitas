@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Meal } from '../../../tests/utils/types';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
@@ -122,6 +122,27 @@ function MealsInProgress() {
     setFavorite(!isFavorite);
   };
 
+  // const navigate = useNavigate();
+  // const HandleClick = () => {
+  //   navigate('/done-recipes');
+  // };
+  const navigate = useNavigate();
+  const HandleClick = () => {
+    const { idMeal, strCategory, strMeal, strMealThumb, strArea } = trem[0];
+    const completedRecipe = {
+      id: idMeal,
+      type: 'meal',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    doneRecipes.push(completedRecipe);
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    navigate('/done-recipes');
+  };
   return (
     <div>
       <img data-testid="recipe-photo" alt="foto" />
@@ -177,6 +198,7 @@ function MealsInProgress() {
       <button
         data-testid="finish-recipe-btn"
         disabled={ !allIngredientsCompleted }
+        onClick={ HandleClick }
       >
         Finalizar Receita
       </button>

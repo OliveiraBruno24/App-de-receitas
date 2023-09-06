@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Drink } from '../../../tests/utils/types';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
@@ -122,6 +122,11 @@ function DrinksInProgress() {
     setFavorite(!isFavorite);
   };
 
+  const navigate = useNavigate();
+  const HandleClick = () => {
+    navigate('/done-recipes');
+  };
+
   return (
     <div>
       <img data-testid="recipe-photo" alt="foto" />
@@ -178,6 +183,7 @@ function DrinksInProgress() {
       <button
         data-testid="finish-recipe-btn"
         disabled={ !allIngredientsCompleted }
+        onClick={ HandleClick }
       >
         Finalizar Receita
       </button>

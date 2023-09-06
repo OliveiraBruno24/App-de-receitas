@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FavoriteAndDoneRecipes } from '../../tests/utils/types';
-import Header from '../Header/Header';
 import shareIcon from '../../images/shareIcon.svg';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState<FavoriteAndDoneRecipes[]>([]);
   const [filter, setFilter] = useState<any | null>(null);
-  const [copy, setCopy] = useState('');
+  const [copy, setCopy] = useState(false);
   console.log(copy);
 
   useEffect(() => {
@@ -18,10 +17,12 @@ function DoneRecipes() {
     }
   }, []);
 
+  console.log('done', doneRecipes);
+
+  const [url, setUrl] = useState('meals');
   return (
     <>
       <div>
-        <Header />
 
         <button
           data-testid="filter-by-all-btn"
@@ -50,16 +51,21 @@ function DoneRecipes() {
 
       {doneRecipes.map((recipe, index) => {
         const handleShareClick = () => {
-          const recipeURL = `http://localhost:3000/${recipe.type}s/${recipe.id}`;
+          const pathName = window.location.pathname;
+          const urlType = pathName.includes('/meals') ? 'meals' : 'drinks';
+          setUrl(urlType);
+          const recipeURL = `http://localhost:3000/${url}/${recipe.id}`;
           navigator.clipboard.writeText(recipeURL);
+          setCopy(true);
           setTimeout(() => {
-            setCopy('Link copied!');
-          }, 3000);
+            setCopy(false);
+          }, 1000);
         };
+        console.log('Recipe:', recipe);
 
         return (
           <div key={ index }>
-            {filter === null || filter === recipe.type ? (
+            {filter === null || filter === url ? (
               <div>
                 <Link to={ `/${recipe.type}s/${recipe.id}` }>
                   <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
@@ -72,18 +78,20 @@ function DoneRecipes() {
                     src={ recipe.image }
                   />
                 </Link>
-
                 <p data-testid={ `${index}-horizontal-top-text` }>
-                  {recipe.nationality}
-                  -
-                  {recipe.category}
+                  {`${recipe.nationality} - ${recipe.category}`}
                 </p>
-
-                <p data-testid={ `${index}-horizontal-done-date` }>
-                  Done on:
-                  {' '}
-                  { recipe.doneDate }
-                </p>
+                <div>
+                  <p data-testid={ `${index}-horizontal-done-date` }>
+                    Done on:
+                    {' '}
+                    { recipe.doneDate }
+                  </p>
+                  <p data-testid={ `${index}-horizontal-top-text` }>
+                    {recipe.alcoholicOrNot}
+                  </p>
+                </div>
+                {' '}
 
                 {/* Renderizar as tags com data-testid */}
                 {recipe.tags && Array.isArray(recipe.tags) && recipe.tags
@@ -96,12 +104,17 @@ function DoneRecipes() {
                     </p>
                   ))}
 
-                <button
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  onClick={ () => { handleShareClick(); } }
-                >
-                  <img src={ shareIcon } alt="Share" />
+                <button onClick={ () => handleShareClick() }>
+
+                  <img
+                    src={ shareIcon }
+                    alt="Share"
+                    data-testid={ `${index}-horizontal-share-btn` }
+
+                  />
+
                 </button>
+                {copy && <p>Link copied!</p>}
               </div>
             ) : null}
           </div>
