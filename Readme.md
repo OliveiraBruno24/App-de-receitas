@@ -1,21 +1,28 @@
-# Título do Projeto
+# App de receitas
 
 ## Descrição
 
-Este repositório está em construção. Aqui você encontrará [breve resumo do projeto ou curso] e seus componentes.
+Este repositório está em construção. Aqui você encontrará um app insiperado no site Tudo gostoso, desenvolido em react com typescript e usando context. Porém, sem CSS :).
 
 ## Conteúdo
-
-- [Instruções de Instalação](#instruções-de-instalação)
-- [Como Usar](#como-usar)
+- O App conta com sistema de login com sistema de verificação de e-mail e senha;
+- Após o login, o usuário é armazenado no local storage; (pode ser observado clicando no icone de perfil no _header_ da página);
+- Barra de busca por nome, ingrediente ou primeira letra para comidas ou bebidas;
+- Cards interativos referente a receita escolhida;
+- Ao interagir com o card (clicar), é redirecionado a uma página com detalhes do prato e sujestoues de acompanhamento em formato de carousel;
+- Se a receita escolhida for comida, o carousel apresentará bebidas, se for bebida, será apresentado comidas;
+- É possível favoritar e desfavoritar uma receita, copiar o link da página para a área de transferência clicando em "share";
+- desenvolver a receita, clicando em "continuar receita";
+- Clicando em "continuar receita" será direcionado a uma página semelhante a anterior, porém os ingredientes recebem checkbox para facilitar a confecção da receita;
+- Após todos os ingredintes receberem um "check", o botão de finalizar será liberado e a receita ficará salva em seu histórico de receitas. (caso não finalize, ficará salvo para continuar de onde parou);
+- O App também conta com 2 icones de rodapé que levarão para a rota /meals ou /drinks. Nessas rotas teremos acesso a 12 receitas de comidas ou bebidas (dependendo da rota selecionada). 
 
 ## Instruções de Instalação
 
-Descreva aqui as instruções necessárias para configurar o ambiente de desenvolvimento e instalar quaisquer dependências.
+Ao clonar o repositório, execute os comandos a baixo:
 
-## Como Usar
-
-Explique como usar. Forneça exemplos de código, capturas de tela ou demonstrações.
+$ npm i vite -- instalará o vite, bundler usado para rodar a aplicação react na web.
+$ npm run dev -- inciará a aplicação no seu navegador.
 
 ## Contribuição
 
@@ -28,6 +35,3 @@ Se você deseja contribuir para este projeto, siga estas etapas para contribuir:
 5. Abra um pull request neste repositório e aguarde o feedback.
 
 Lembre-se de que todas as contribuições são valorizadas e ajudam a tornar este projeto melhor para todos!
-
-## Continue como desejar este Readme.md
-**Observação:** Este repositório está em construção e será atualizado regularmente. Sinta-se à vontade para adicionar mais seções conforme necessário para o seu projeto.
