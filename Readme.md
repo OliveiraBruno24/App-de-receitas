@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este repositório está em construção. Aqui você encontrará um app insiperado no site Tudo gostoso, desenvolido em react com typescript e usando context. Porém, sem CSS :).
+Este repositório está em construção. Aqui você encontrará um app insiperado no site Tudo gostoso, desenvolido em react com typescript e usando context. Porém, sem CSS :)
 
 ## Conteúdo
 - O App conta com sistema de login com sistema de verificação de e-mail e senha;
